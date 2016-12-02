@@ -1,5 +1,8 @@
 # Compile command
-COMPILER = mvn package
+COMPILE = mvn package
+
+# Test command
+TEST = mvn test
 
 # Set source dir and scan source dir for all java files
 SRC_DIR = src/main/java/homework/mstruebing/app/
@@ -9,19 +12,19 @@ SOURCES := $(shell find $(SRC_DIR) -name '*.java')
 TEST_DIR = src/test/java/homework/mstruebing/app/
 TEST_SOURCES := $(shell find $(TEST_DIR) -name '*.java')
 
-all: target start
+all: start
 
 target: $(SOURCES)
-	mvn package
+	$(COMPILE)
 
-start:
+start: target
 	java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App
 
 setup: Build/GitHooks/pre-commit
-	cp Build/GitHooks/pre-commit .git/hooks/
+	cd .git/hooks && ln -sf ../../Build/GitHooks/pre-commit
 
 test: $(SOURCES) $(TEST_SOURCES)
-	mvn test
+	$(TEST)
 
 clean: 
 	rm -Rf target
