@@ -12,6 +12,8 @@ SOURCES = $(shell find $(SRC_DIR) -type f -name '*.java')
 TEST_DIR = src/test/java/homework/mstruebing/app/
 TEST_SOURCES = $(shell find $(TEST_DIR) -type f -name '*.java')
 
+
+# Targets
 all: start
 
 target: $(SOURCES)
