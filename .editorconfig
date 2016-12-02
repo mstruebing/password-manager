@@ -4,7 +4,13 @@ insert_final_newline = true
 
 [Makefile]
 indent_style = tab
+indent_size = 8
+
+[*.xml]
+indent_style = space
+indent_size = 2
 
 [*.java]
 indent_style = tab
 indent_size = 4
+
