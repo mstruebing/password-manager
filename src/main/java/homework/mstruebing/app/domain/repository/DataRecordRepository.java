@@ -4,7 +4,7 @@ package homework.mstruebing.app;
  * Repository for a data record
  *
  */
-public class DataRecordRepository extends Repository
+public class DataRecordRepository<DataRecord> extends Repository
 {
 
 }
