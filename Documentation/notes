@@ -6,15 +6,18 @@ maven
     commons cli to parse arguments
     errorprone from google
 
+    javadoc documentation
+
 makefile
     setup
     clean
     all
     target
+    docs
 
 editorconfig
     consistency
 
 githooks
-    static code analysis
+    test when java file is changed before commiting
 
