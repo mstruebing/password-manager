@@ -7,17 +7,16 @@ import junit.framework.TestSuite;
 /**
  * Unit test for Encryption.
  */
-public class EncryptionTest 
-    extends TestCase
+public class EncryptionTest extends TestCase
 {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public EncryptionTest( String testName )
+    public EncryptionTest(String testName)
     {
-        super( testName );
+        super(testName);
     }
 
     /**
@@ -25,7 +24,7 @@ public class EncryptionTest
      */
     public static Test suite()
     {
-        return new TestSuite( EncryptionTest.class );
+        return new TestSuite(EncryptionTest.class);
     }
 
 
