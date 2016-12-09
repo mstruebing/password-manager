@@ -1,0 +1,20 @@
+maven
+    dependencies - npm pip packagemanager
+
+    maven shade plugin - jar with stuff like commons cli
+
+    commons cli to parse arguments
+    errorprone from google
+
+makefile
+    setup
+    clean
+    all
+    target
+
+editorconfig
+    consistency
+
+githooks
+    static code analysis
+
