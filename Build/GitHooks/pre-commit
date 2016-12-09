@@ -1,3 +1,12 @@
 #!/usr/bin/env bash
 
-mvn test
+CHANGED_JAVA_FILES=$(git diff --cached --name-only -- '*.java')
+
+
+if [ ! -z "$CHANGED_JAVA_FILES" ]; 
+then
+    echo -----
+    echo some java files has changed so I\'m running the testes before commiting ...
+    echo -----
+    mvn test
+fi
