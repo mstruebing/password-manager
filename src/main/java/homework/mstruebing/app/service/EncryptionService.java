@@ -4,7 +4,7 @@ package homework.mstruebing.app;
  * Utility functions to encrypt and decrypt data
  *
  */
-public class Encryption 
+public class EncryptionService
 {
 	/**
 	 * encrypts a given string

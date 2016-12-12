@@ -7,14 +7,14 @@ import junit.framework.TestSuite;
 /**
  * Unit test for Encryption.
  */
-public class EncryptionTest extends TestCase
+public class EncryptionServiceTest extends TestCase
 {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public EncryptionTest(String testName)
+    public EncryptionServiceTest(String testName)
     {
         super(testName);
     }
@@ -24,7 +24,7 @@ public class EncryptionTest extends TestCase
      */
     public static Test suite()
     {
-        return new TestSuite(EncryptionTest.class);
+        return new TestSuite(EncryptionServiceTest.class);
     }
 
 
@@ -35,7 +35,7 @@ public class EncryptionTest extends TestCase
 	{
 		String toEncrypt = "FOR NOW IT IS THE SAME";
 		String encrypted = "FOR NOW IT IS THE SAME";
-		assertTrue(Encryption.encrypt(toEncrypt).equals(encrypted));
+		assertTrue(EncryptionService.encrypt(toEncrypt).equals(encrypted));
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class EncryptionTest extends TestCase
 	{
 		String toDecrypt = "FOR NOW IT IS THE SAME";
 		String decrypted = "FOR NOW IT IS THE SAME";
-		assertTrue(Encryption.decrypt(toDecrypt).equals(decrypted));
+		assertTrue(EncryptionService.decrypt(toDecrypt).equals(decrypted));
 	}
 
 	/**
@@ -54,6 +54,6 @@ public class EncryptionTest extends TestCase
 	public void testEncryptAndDecrypt()
 	{
 		String toCheck = "SHOULD EVERYTIME BE THE SAME";
-		assertTrue(Encryption.decrypt(Encryption.encrypt(toCheck)).equals(toCheck));
+		assertTrue(EncryptionService.decrypt(EncryptionService.encrypt(toCheck)).equals(toCheck));
 	}
 }
