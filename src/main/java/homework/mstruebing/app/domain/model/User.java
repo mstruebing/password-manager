@@ -1,17 +1,18 @@
 package homework.mstruebing.app;
 
+import java.util.Collection;
+
 /**
- * A model which represents a data-record
+ * A model which represents an user
  *
  */
-public class DataRecord 
+public class User 
 {
 	protected long id;
-	protected String title;
 	protected String username;
-	protected String password;
-	protected String url;
+	protected String key;
 	protected String email;
+	protected Collection<PasswordList> passwordLists;
 
 	/**
 	 * TODO getter and setter

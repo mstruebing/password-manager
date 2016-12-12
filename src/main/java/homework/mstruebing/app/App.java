@@ -9,23 +9,24 @@ import org.apache.commons.cli.*;
 public class App 
 {
 
-    public static void main( String[] args ) throws Exception
+    public static void main(String[] args) throws Exception
     {
 
-		DataRecordRepository record = new DataRecordRepository();
-		DataRecord dataRecord = new DataRecord();
-		record.save(dataRecord);
+		UserRepository userRepository = new UserRepository();
+		User user = new User();
+		userRepository.save(user);
 
         System.out.println( "Hello World!" );
+
 		Options options = new Options();
 
+		// short opt
+		// long opt
+		// argument after
+		// description
         Option input = new Option("i", "input", true, "input file path");
         input.setRequired(true);
         options.addOption(input);
-
-        Option output = new Option("o", "output", true, "output file");
-        output.setRequired(true);
-        options.addOption(output);
 
         CommandLineParser parser = new PosixParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -42,9 +43,6 @@ public class App
         }
 
         String inputFilePath = cmd.getOptionValue("input");
-        String outputFilePath = cmd.getOptionValue("output");
-
         System.out.println(inputFilePath);
-        System.out.println(outputFilePath);
     }
 }
