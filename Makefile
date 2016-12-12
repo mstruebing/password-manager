@@ -17,23 +17,23 @@ TEST_SOURCES = $(shell find $(TEST_DIR) -type f -name '*.java')
 
 
 # Targets
-all: clean docs start
-
-target: $(SOURCES)
-	$(COMPILE)
+all: start
 
 start: target
 	java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App
 
 docs: target
-	$(DOC)
+	$(DOC) && rm -Rf Documentation/apidocs && cp -R target/site/apidocs Documentation/
 
-setup: Build/GitHooks/pre-commit
-	cd .git/hooks && ln -sf ../../Build/GitHooks/pre-commit
+target: $(SOURCES)
+	$(COMPILE)
 
 test: $(SOURCES) $(TEST_SOURCES)
 	$(TEST)
 
-clean: 
+setup: Build/GitHooks/pre-commit
+	cd .git/hooks && ln -sf ../../Build/GitHooks/pre-commit
+
+clean: test docs start
 	rm -Rf target
 
