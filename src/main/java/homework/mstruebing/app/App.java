@@ -18,6 +18,10 @@ public class App
 
         System.out.println( "Hello World!" );
 
+		ConfigService configService = new ConfigService();
+		System.out.println(configService.configExists());
+		configService.createDefaultConfig();
+
 		Options options = new Options();
 
 		// short opt

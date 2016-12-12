@@ -10,7 +10,7 @@ public class User
 {
 	protected long id;
 	protected String username;
-	protected String key;
+	protected String accessKey;
 	protected String email;
 	protected Collection<PasswordList> passwordLists;
 

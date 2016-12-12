@@ -5,7 +5,7 @@ COMPILE = mvn package
 TEST = mvn test
 
 # Generate documentation command
-DOC = mvn javadoc:javadoc
+GENERATE_DOCS = mvn javadoc:javadoc
 
 # Set source dir and scan source dir for all java files
 SRC_DIR = src/main/java/homework/mstruebing/app/
@@ -22,8 +22,8 @@ all: start
 start: target
 	java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App
 
-docs: target
-	$(DOC) && rm -Rf Documentation/apidocs && cp -R target/site/apidocs Documentation/
+docs: $(SOURCES)
+	$(GENERATE_DOCS) && rm -Rf Documentation/apidocs && cp -R target/site/apidocs Documentation/
 
 target: $(SOURCES)
 	$(COMPILE)
