@@ -20,7 +20,7 @@ TEST_SOURCES = $(shell find $(TEST_DIR) -type f -name '*.java')
 all: start
 
 start: target
-	java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App
+	java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App -i ab
 
 docs: $(SOURCES)
 	$(GENERATE_DOCS) && rm -Rf Documentation/apidocs && cp -R target/site/apidocs Documentation/

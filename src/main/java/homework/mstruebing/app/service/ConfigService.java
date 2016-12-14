@@ -57,13 +57,13 @@ public class ConfigService
 		JSONParser parser = new JSONParser();
 
 		try {
-			Object obj = parser.parse(new FileReader(configFile));
+			Object configObject = parser.parse(new FileReader(configFile));
  
-            JSONObject jsonObject = (JSONObject) obj;
+            JSONObject configJsonObject = (JSONObject) configObject;
  
-            String name = (String) jsonObject.get("Name");
-            String author = (String) jsonObject.get("Author");
-            JSONArray companyList = (JSONArray) jsonObject.get("Company List");
+            String name = (String) configJsonObject.get("Name");
+            String author = (String) configJsonObject.get("Author");
+            JSONArray companyList = (JSONArray) configJsonObject.get("Company List");
  
             System.out.println("Name: " + name);
             System.out.println("Author: " + author);
