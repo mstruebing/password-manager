@@ -6,7 +6,7 @@ package homework.mstruebing.app;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Option;
@@ -42,7 +42,7 @@ public class App
         input.setRequired(true);
         options.addOption(input);
 
-        CommandLineParser parser = new PosixParser();
+        CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd;
 
