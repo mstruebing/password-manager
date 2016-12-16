@@ -49,6 +49,9 @@
                only supports >=6 -->
           <source>8</source>
           <target>8</target>
+          <compilerArgs>
+            <arg>-Xlint</arg>
+          </compilerArgs>
         </configuration>
         <dependencies>
           <dependency>
