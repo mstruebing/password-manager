@@ -53,7 +53,7 @@ public class App
             formatter.printHelp("utility-name", options);
 
             System.exit(1);
-            return;
+			return;
         }
 
         String inputFilePath = cmd.getOptionValue("input");
