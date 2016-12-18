@@ -8,7 +8,7 @@ import java.util.Collection;
  */
 public class User 
 {
-	protected long id;
+	protected int id;
 	protected PasswordList passwordList;
 	
 
@@ -20,16 +20,16 @@ public class User
 	 *	protected Collection<PasswordList> passwordLists;
 	 */
 
-	public User(long id, PasswordList passwordList) {
+	public User(int id, PasswordList passwordList) {
 		this.id = id;
 		this.passwordList = passwordList;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public long getId() {
+	public int getId() {
 		return this.id;
 	}
 

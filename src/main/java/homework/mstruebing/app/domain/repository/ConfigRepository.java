@@ -93,26 +93,38 @@ public class ConfigRepository extends Repository<Config>
 		return file.isFile();
 	}
 
-	public boolean getConfig() {
+	/**
+	 * @TODO simplify parsing via reflection?
+	 *
+	 * Returns a Config object with all properties set
+	 * CAUTION: returns null if an exception occurs
+	 *
+	 * @return Config
+	 */
+	public Config getConfig() {
+		// declare config due visibility
+		Config config;
+
 		try {
 			JSONParser parser = new JSONParser();
 			Object configObject = parser.parse(new FileReader(configFile));
- 
             JSONObject configJsonObject = (JSONObject) configObject;
- 
-            String name = (String) configJsonObject.get("Name");
-            String author = (String) configJsonObject.get("Author");
-            JSONArray companyList = (JSONArray) configJsonObject.get("Company List");
- 
-            System.out.println("Name: " + name);
-            System.out.println("Author: " + author);
-            System.out.println("\nCompany List:");
- 
+
+			// just because fucking org.json* left me no other choice
+			int userID = ((Long) configJsonObject.get("userID")).intValue();
+			int dbPort = ((Long) configJsonObject.get("dbPort")).intValue();
+
+            String dbHost = (String) configJsonObject.get("dbHost");
+			String dbUsername = (String) configJsonObject.get("dbUsername");
+			String dbPassword = (String) configJsonObject.get("dbPassword");
+			String dbName = (String) configJsonObject.get("dbName");
+
+			config = new Config(userID, dbHost, dbPort, dbUsername, dbPassword, dbName);
         } catch (Exception e) {
-            e.printStackTrace();
+			System.err.println("ERROR: " + e.getMessage());
+			config = null;
         }
 
-		return true;
-
+		return config;
 	}
 }

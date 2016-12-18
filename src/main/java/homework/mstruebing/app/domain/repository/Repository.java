@@ -19,7 +19,7 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 		return true;
 	}
 
-	public long count() {
+	public int count() {
 		System.out.println("should count in: " + repositoryName);
 		return 0;
 	}

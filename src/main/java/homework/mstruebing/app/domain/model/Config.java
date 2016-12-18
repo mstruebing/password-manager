@@ -7,14 +7,14 @@ package homework.mstruebing.app;
 public class Config 
 {
 
-	protected long userID;
+	protected int userID;
 	protected String dbHost;
 	protected int dbPort;
 	protected String dbUsername;
 	protected String dbPassword;
 	protected String dbName;
 
-	public Config(long userID, String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName) {
+	public Config(int userID, String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName) {
 		this.userID = userID;
 		this.dbHost = dbHost;
 		this.dbPort = dbPort;
@@ -23,11 +23,11 @@ public class Config
 		this.dbName = dbName;
 	}
 
-	public void setUserID(long userID) {
+	public void setUserID(int userID) {
 		this.userID = userID;
 	}
 	
-	public long getUserID() {
+	public int getUserID() {
 		return this.userID;
 	}
 

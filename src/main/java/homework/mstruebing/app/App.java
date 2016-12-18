@@ -26,14 +26,17 @@ public class App
 
 		if (!configService.configIsValid()) {
 			configService.createDefaultConfig(); 
-		} else {
-			System.out.println("Read config file");
-		}
+		} 
 
+		ConfigRepository configRepository = new ConfigRepository();
+		Config config = configRepository.getConfig();
+
+		System.out.println(config.getDbName());
+		
 		Options options = new Options();
 
 		// short opt
-		// long opt
+		// int opt
 		// argument after
 		// description
         Option input = new Option("i", "input", true, "input file path");

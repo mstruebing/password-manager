@@ -23,7 +23,7 @@ public class ConfigService
 	public static boolean createDefaultConfig() {
 		// default settings
 		// @TODO get real useable userid
-		long userID = 1;
+		int userID = 1;
 		String dbHost = "127.0.0.1";
 		int dbPort = 3306;
 		String dbUsername = "admin";
