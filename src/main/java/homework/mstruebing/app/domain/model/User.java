@@ -9,12 +9,35 @@ import java.util.Collection;
 public class User 
 {
 	protected long id;
-	protected String username;
-	protected String accessKey;
-	protected String email;
-	protected Collection<PasswordList> passwordLists;
+	protected PasswordList passwordList;
+	
 
 	/**
-	 * TODO getter and setter
+	 *  @TODO later
+	 *	protected String username;
+	 *	protected String accessKey;
+	 *	protected String email;
+	 *	protected Collection<PasswordList> passwordLists;
 	 */
+
+	public User(long id, PasswordList passwordList) {
+		this.id = id;
+		this.passwordList = passwordList;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getId() {
+		return this.id;
+	}
+
+	public void setPasswordList(PasswordList passwordList) {
+		this.passwordList = passwordList;
+	}
+
+	public PasswordList getPasswordList() {
+		return this.passwordList;
+	}
 }

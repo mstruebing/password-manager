@@ -22,15 +22,13 @@ public class App
     public static void main(String[] args) throws Exception
     {
 
-		UserRepository userRepository = new UserRepository();
-		User user = new User();
-		userRepository.save(user);
-
-        System.out.println( "Hello World!" );
-
 		ConfigService configService = new ConfigService();
-		System.out.println(configService.configExists());
-		configService.createDefaultConfig();
+
+		if (!configService.configIsValid()) {
+			configService.createDefaultConfig(); 
+		} else {
+			System.out.println("Read config file");
+		}
 
 		Options options = new Options();
 

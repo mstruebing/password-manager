@@ -15,64 +15,34 @@ import org.json.simple.parser.JSONParser;
 public class ConfigService
 {
 
-	protected final String configFile = System.getProperty("user.home").concat("/.pw_man_max.conf");
+	/**
+	 * Creates a default config and saves it via repository
+	 *
+	 * @return boolean
+	 */
+	public static boolean createDefaultConfig() {
+		// default settings
+		// @TODO get real useable userid
+		long userID = 1;
+		String dbHost = "127.0.0.1";
+		int dbPort = 3306;
+		String dbUsername = "admin";
+		String dbPassword = "pass";
+		String dbName = "pw_stuff";
 
-	public boolean configExists() {
-		File file = new File(configFile);
-		return file.isFile();
+		Config config = new Config(userID, dbHost, dbPort, dbUsername, dbPassword, dbName);
+		ConfigRepository configRepository = new ConfigRepository();
+		
+		return configRepository.save(config);
 	}
 
+	/**
+	 * Checks if a config file exists and if it is valid
+	 *
+	 * @return boolean
+	 */
 	public boolean configIsValid() {
-		return configExists() && true;
-	}
-
-	public Config getConfig() {
-		return new Config();
-	}
-
-	public boolean createDefaultConfig() {
-		JSONObject obj = new JSONObject();
-		obj.put("Name", "crunchify.com");
-		obj.put("Author", "App Shah");
- 
-		JSONArray company = new JSONArray();
-		company.add("Compnay: eBay");
-		company.add("Compnay: Paypal");
-		company.add("Compnay: Google");
-		obj.put("Company List", company);
- 
-		try (FileWriter file = new FileWriter(configFile)) {
-			file.write(obj.toJSONString());
-			System.out.println("Successfully Copied JSON Object to File...");
-			System.out.println("\nJSON Object: " + obj);
-		} catch (Exception e) {
-			System.err.println("ERROR:" + e.getMessage());
-			return false;
-		}
-
-		return true;
-	}
-
-	private boolean parseConfig() {
-		JSONParser parser = new JSONParser();
-
-		try {
-			Object configObject = parser.parse(new FileReader(configFile));
- 
-            JSONObject configJsonObject = (JSONObject) configObject;
- 
-            String name = (String) configJsonObject.get("Name");
-            String author = (String) configJsonObject.get("Author");
-            JSONArray companyList = (JSONArray) configJsonObject.get("Company List");
- 
-            System.out.println("Name: " + name);
-            System.out.println("Author: " + author);
-            System.out.println("\nCompany List:");
- 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-		return true;
+		ConfigRepository configRepository = new ConfigRepository();
+		return configRepository.configExists() && true;
 	}
 }

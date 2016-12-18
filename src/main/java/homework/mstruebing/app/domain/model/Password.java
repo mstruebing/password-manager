@@ -7,6 +7,7 @@ package homework.mstruebing.app;
 public class Password 
 {
 	protected long id;
+	protected PasswordList passwordList;
 	protected String title;
 	protected String username;
 	protected String password;

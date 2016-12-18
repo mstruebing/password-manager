@@ -9,10 +9,36 @@ import java.util.Collection;
 public class PasswordList 
 {
 	protected long id;
-	protected String title;
+	protected User user;
 	protected Collection<Password> passwords;
 
-	/**
-	 * TODO getter and setter
-	 */
+	public PasswordList(long id, User user, Collection<Password> passwords) {
+		this.id = id;
+		this.user = user;
+		this.passwords = passwords;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getId() {
+		return this.id;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void addPassword(Password password) {
+		passwords.add(password);
+	}
+
+	public void removePassword(Password password) {
+		passwords.remove(password);
+	}
 }
