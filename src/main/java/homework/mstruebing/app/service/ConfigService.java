@@ -8,6 +8,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.util.Scanner;
+
 /**
  * Service class to handle the config
  *
@@ -20,7 +22,7 @@ public class ConfigService
 	 *
 	 * @return boolean
 	 */
-	public static boolean createDefaultConfig() {
+	public boolean createDefaultConfig() {
 		// default settings
 		// @TODO get real useable userid
 		int userID = 1;
@@ -43,6 +45,20 @@ public class ConfigService
 	 */
 	public boolean configIsValid() {
 		ConfigRepository configRepository = new ConfigRepository();
-		return configRepository.configExists() && true;
+		
+		// I do the parsing there anyway
+		Config config = configRepository.getConfig();
+		return configRepository.configExists() && config != null;
+	}
+
+	public boolean askToCreateDefaultConfig() {
+		System.out.println("Should the program create a default config? [Y/n]");
+		System.out.println("Caution: This will overwrite an existing one");
+		Scanner scanner = new Scanner(System.in);
+		char choice = Character.toUpperCase(scanner.next().charAt(0));
+		if (choice == 'Y') {
+			createDefaultConfig();
+		}
+		return true;
 	}
 }

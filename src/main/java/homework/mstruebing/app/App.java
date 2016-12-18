@@ -25,13 +25,28 @@ public class App
 		ConfigService configService = new ConfigService();
 
 		if (!configService.configIsValid()) {
-			configService.createDefaultConfig(); 
+			System.out.println("Your config file doesn't exist or isn't valid!");
+			configService.askToCreateDefaultConfig();
 		} 
 
 		ConfigRepository configRepository = new ConfigRepository();
 		Config config = configRepository.getConfig();
 
-		System.out.println(config.getDbName());
+		// just in case something has manipulated the config file in between hrhr
+		if (config == null) {
+			System.out.println("Your config was modified since the program started and isn't anymore valid!");
+			System.out.println("Start the program again to create a default config or edit the config manually and start again.");
+			System.exit(1);
+		}
+		
+		DatabaseService databaseService = new DatabaseService();
+		
+		if (!databaseService.testConnection(config)) {
+			System.err.println("ERROR: Can't connect to database");
+			System.err.println("Exiting ...");
+			System.exit(1);
+		}
+
 		
 		Options options = new Options();
 

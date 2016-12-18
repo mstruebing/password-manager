@@ -7,7 +7,7 @@ package homework.mstruebing.app;
 public abstract class Repository<T> implements RepositoryInterface<T>
 {
 
-	private final String repositoryName = this.getClass().getName();
+	protected final String repositoryName = this.getClass().getName();
 
 	public boolean save(T entity) {
 		System.out.println("should save into: " + repositoryName);

@@ -94,7 +94,7 @@ public class ConfigRepository extends Repository<Config>
 	}
 
 	/**
-	 * @TODO simplify parsing via reflection?
+	 * @TODO simplify parsing via reflection or smth?
 	 *
 	 * Returns a Config object with all properties set
 	 * CAUTION: returns null if an exception occurs
