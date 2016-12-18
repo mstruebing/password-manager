@@ -55,10 +55,12 @@ public class ConfigService
 		System.out.println("Should the program create a default config? [Y/n]");
 		System.out.println("Caution: This will overwrite an existing one");
 		Scanner scanner = new Scanner(System.in);
+
 		char choice = Character.toUpperCase(scanner.next().charAt(0));
 		if (choice == 'Y') {
 			createDefaultConfig();
 		}
+
 		return true;
 	}
 }

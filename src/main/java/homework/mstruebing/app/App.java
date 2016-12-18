@@ -54,9 +54,16 @@ public class App
 		// int opt
 		// argument after
 		// description
-        Option input = new Option("i", "input", true, "input file path");
-        input.setRequired(true);
-        options.addOption(input);
+//        Option input = new Option("i", "input", true, "input file path");
+//        input.setRequired(true);
+//        options.addOption(input);
+
+		Option add = new Option("a", "add", false, "add a new password");
+		Option generate = new Option("g", "generate", false, "outputs a generated password");
+
+		options.addOption(add);
+		options.addOption(generate);
+
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -72,7 +79,7 @@ public class App
 			return;
         }
 
-        String inputFilePath = cmd.getOptionValue("input");
-        System.out.println(inputFilePath);
+        boolean generatePassword = cmd.hasOption("generate");
+        System.out.println(generatePassword);
     }
 }

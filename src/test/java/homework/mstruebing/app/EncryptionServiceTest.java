@@ -35,7 +35,8 @@ public class EncryptionServiceTest extends TestCase
 	{
 		String toEncrypt = "FOR NOW IT IS THE SAME";
 		String encrypted = "FOR NOW IT IS THE SAME";
-		assertTrue(EncryptionService.encrypt(toEncrypt).equals(encrypted));
+		EncryptionService encryptionService = new EncryptionService();
+		assertTrue(encryptionService.encrypt(toEncrypt).equals(encrypted));
 	}
 
 	/**
@@ -45,7 +46,8 @@ public class EncryptionServiceTest extends TestCase
 	{
 		String toDecrypt = "FOR NOW IT IS THE SAME";
 		String decrypted = "FOR NOW IT IS THE SAME";
-		assertTrue(EncryptionService.decrypt(toDecrypt).equals(decrypted));
+		EncryptionService encryptionService = new EncryptionService();
+		assertTrue(encryptionService.decrypt(toDecrypt).equals(decrypted));
 	}
 
 	/**
@@ -54,6 +56,7 @@ public class EncryptionServiceTest extends TestCase
 	public void testEncryptAndDecrypt()
 	{
 		String toCheck = "SHOULD EVERYTIME BE THE SAME";
-		assertTrue(EncryptionService.decrypt(EncryptionService.encrypt(toCheck)).equals(toCheck));
+		EncryptionService encryptionService = new EncryptionService();
+		assertTrue(encryptionService.decrypt(encryptionService.encrypt(toCheck)).equals(toCheck));
 	}
 }
