@@ -20,6 +20,10 @@ public class User
 	 *	protected Collection<PasswordList> passwordLists;
 	 */
 
+	public User(int id) {
+		this.id = id;
+	}
+
 	public User(int id, PasswordList passwordList) {
 		this.id = id;
 		this.passwordList = passwordList;

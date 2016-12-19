@@ -18,7 +18,58 @@ public class Password
 	 * protected String email;
 	 */
 
-	/**
-	 * TODO getter and setter
-	 */
+	public Password(int id, PasswordList passwordList, String title, String password) {
+		this.id = id;
+		this.passwordList = passwordList;
+		this.title = title;
+		this.password = password;
+	}
+
+	public Password(int id, PasswordList passwordList, String title, String username, String password) {
+		this.id = id;
+		this.passwordList = passwordList;
+		this.title = title;
+		this.username = username;
+		this.password = password;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setPasswordList(PasswordList passwordList) {
+		this.passwordList = passwordList;
+	}
+
+	public PasswordList getPasswordList() {
+		return this.passwordList;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
 }

@@ -12,6 +12,11 @@ public class PasswordList
 	protected User user;
 	protected Collection<Password> passwords;
 
+	public PasswordList(int id, User user) {
+		this.id = id;
+		this.user = user;
+	}
+
 	public PasswordList(int id, User user, Collection<Password> passwords) {
 		this.id = id;
 		this.user = user;
