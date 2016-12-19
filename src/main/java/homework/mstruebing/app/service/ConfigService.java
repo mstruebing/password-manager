@@ -23,16 +23,21 @@ public class ConfigService
 	 * @return boolean
 	 */
 	public boolean createDefaultConfig() {
-		// default settings
-		// @TODO get real useable userid
-		int userID = 1;
+		// default db settings
 		String dbHost = "127.0.0.1";
 		int dbPort = 3306;
 		String dbUsername = "admin";
 		String dbPassword = "pass";
 		String dbName = "pw_stuff";
 
-		Config config = new Config(userID, dbHost, dbPort, dbUsername, dbPassword, dbName);
+
+		Config config = new Config(dbHost, dbPort, dbUsername, dbPassword, dbName);
+
+		// get the next free userid
+		DatabaseService databaseService = new DatabaseService();
+		int userID = databaseService.getNextUserId(config);
+		config.setUserID(userID);
+
 		ConfigRepository configRepository = new ConfigRepository();
 		
 		return configRepository.save(config);

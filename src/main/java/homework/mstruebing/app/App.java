@@ -46,7 +46,7 @@ public class App
 			System.err.println("Exiting ...");
 			System.exit(1);
 		}
-		
+
 		Options options = new Options();
 
 		// short opt

@@ -3,6 +3,8 @@ package homework.mstruebing.app;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  * Functions to handle the database connection
@@ -27,8 +29,7 @@ public class DatabaseService
         try {
 			connection = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
-			System.err.println("ERROR: No database connection");
-			System.err.println(e.getMessage());
+			System.err.println("ERROR" + e.getMessage());
 		}
 		
 		return connection;
@@ -43,7 +44,7 @@ public class DatabaseService
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			System.out.println("No database connection");
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -63,5 +64,31 @@ public class DatabaseService
 		}
 
 		return true;
+	}
+
+	public int getNextUserId(Config config) {
+		Connection connection = getConnection(config);
+		ResultSet rs = null;
+
+		if (null != connection) {
+			PreparedStatement pst = null;	
+			String stmnt = "INSERT INTO UserRepository VALUES()";
+			String getLastInsertedId = "SELECT @id:=id AS id FROM UserRepository WHERE id = last_insert_id();";
+			
+			try {
+				pst = connection.prepareStatement(stmnt);
+				pst.executeUpdate();
+				pst = connection.prepareStatement(getLastInsertedId);
+				rs = pst.executeQuery();
+				rs.next();
+				return rs.getInt(1);
+			} catch (SQLException e) {
+				System.err.println("ERROR" + e.getMessage());
+			} finally {
+				disconnect(connection);
+			}
+		}
+
+		return -1;
 	}
 }

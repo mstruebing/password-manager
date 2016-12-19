@@ -14,6 +14,14 @@ public class Config
 	protected String dbPassword;
 	protected String dbName;
 
+	public Config(String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName) {
+		this.dbHost = dbHost;
+		this.dbPort = dbPort;
+		this.dbUsername = dbUsername;
+		this.dbPassword = dbPassword;
+		this.dbName = dbName;
+	}
+
 	public Config(int userID, String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName) {
 		this.userID = userID;
 		this.dbHost = dbHost;
