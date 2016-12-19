@@ -24,13 +24,36 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `pw_stuff` /*!40100 DEFAULT CHARACTER S
 USE `pw_stuff`;
 
 --
--- Table structure for table `password`
+-- Table structure for table `PasswordListRepository`
 --
 
-DROP TABLE IF EXISTS `password`;
+DROP TABLE IF EXISTS `PasswordListRepository`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `password` (
+CREATE TABLE `PasswordListRepository` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userID` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PasswordListRepository`
+--
+
+LOCK TABLES `PasswordListRepository` WRITE;
+/*!40000 ALTER TABLE `PasswordListRepository` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PasswordListRepository` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PasswordRepository`
+--
+
+DROP TABLE IF EXISTS `PasswordRepository`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PasswordRepository` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `passwordListID` int(10) unsigned DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
@@ -41,45 +64,22 @@ CREATE TABLE `password` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `password`
+-- Dumping data for table `PasswordRepository`
 --
 
-LOCK TABLES `password` WRITE;
-/*!40000 ALTER TABLE `password` DISABLE KEYS */;
-/*!40000 ALTER TABLE `password` ENABLE KEYS */;
+LOCK TABLES `PasswordRepository` WRITE;
+/*!40000 ALTER TABLE `PasswordRepository` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PasswordRepository` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `passwordList`
+-- Table structure for table `UserRepository`
 --
 
-DROP TABLE IF EXISTS `passwordList`;
+DROP TABLE IF EXISTS `UserRepository`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `passwordList` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userID` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `passwordList`
---
-
-LOCK TABLES `passwordList` WRITE;
-/*!40000 ALTER TABLE `passwordList` DISABLE KEYS */;
-/*!40000 ALTER TABLE `passwordList` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
+CREATE TABLE `UserRepository` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `passwordListID` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -87,12 +87,12 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `UserRepository`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `UserRepository` WRITE;
+/*!40000 ALTER TABLE `UserRepository` DISABLE KEYS */;
+/*!40000 ALTER TABLE `UserRepository` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -104,4 +104,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-19 13:05:53
+-- Dump completed on 2016-12-19 13:43:14

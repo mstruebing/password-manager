@@ -47,6 +47,10 @@ public class App
 			System.exit(1);
 		}
 
+		Password password = new Password();
+		PasswordRepository passwordRepository = new PasswordRepository();
+		passwordRepository.save(password);
+
 		
 		Options options = new Options();
 
