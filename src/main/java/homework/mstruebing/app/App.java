@@ -81,5 +81,9 @@ public class App
 
         boolean generatePassword = cmd.hasOption("generate");
         System.out.println(generatePassword);
+		if (generatePassword) {
+			EncryptionService encryptionService = new EncryptionService();
+			System.out.println(encryptionService.generatePassword());
+		}
     }
 }

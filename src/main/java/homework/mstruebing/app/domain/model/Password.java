@@ -11,8 +11,12 @@ public class Password
 	protected String title;
 	protected String username;
 	protected String password;
-	protected String url;
-	protected String email;
+
+	/**
+	 * @TODO later
+	 * protected String url;
+	 * protected String email;
+	 */
 
 	/**
 	 * TODO getter and setter

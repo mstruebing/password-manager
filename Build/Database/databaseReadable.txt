@@ -1,0 +1,21 @@
+CREATE DATABASE pw_stuff collate utf8_general_ci;
+
+USE pw_stuff
+
+CREATE TABLE user (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+passwordListID INT UNSIGNED
+);
+
+CREATE TABLE passwordList (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+userID INT UNSIGNED
+);
+
+CREATE TABLE password (
+id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+passwordListID INT UNSIGNED,
+title VARCHAR(100),
+username VARCHAR(100),
+password VARCHAR(100)
+);
