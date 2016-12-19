@@ -57,8 +57,7 @@ public class ConfigService
 	}
 
 	public boolean askToCreateDefaultConfig() {
-		System.out.println("Should the program create a default config? [Y/n]");
-		System.out.println("Caution: This will overwrite an existing one");
+		System.out.println("Should the program create a default config? [Y/n] - Caution: This will overwrite an existing one");
 		Scanner scanner = new Scanner(System.in);
 
 		char choice = Character.toUpperCase(scanner.next().charAt(0));

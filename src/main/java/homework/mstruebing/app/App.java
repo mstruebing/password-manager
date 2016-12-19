@@ -47,6 +47,11 @@ public class App
 			System.exit(1);
 		}
 
+		if (config.getUserID() == -1) {
+			config.setUserID(databaseService.getNextUserId(config));
+			configRepository.save(config);
+		}
+
 		Options options = new Options();
 
 		// short opt
