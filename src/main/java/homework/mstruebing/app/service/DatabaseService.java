@@ -29,7 +29,7 @@ public class DatabaseService
         try {
 			connection = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
-			System.err.println("ERROR" + e.getMessage());
+			System.err.println("ERROR: " + e.getMessage());
 		}
 		
 		return connection;

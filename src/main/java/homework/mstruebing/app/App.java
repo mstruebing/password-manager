@@ -11,11 +11,11 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Option;
 
-
 /**
  * Hello world!
  *
  */
+// @TODO ERRORCODES
 public class App 
 {
 
@@ -34,8 +34,8 @@ public class App
 
 		// just in case something has manipulated the config file in between hrhr
 		if (config == null) {
-			System.out.println("Your config was modified since the program started and isn't anymore valid!");
-			System.out.println("Start the program again to create a default config or edit the config manually and start again.");
+			System.err.println("Your config file doesn't exist or isn't valid!");
+			System.err.println("Start the program again to create a default config or edit the config manually and start again.");
 			System.exit(1);
 		}
 		
@@ -43,14 +43,30 @@ public class App
 		
 		if (!databaseService.testConnection(config)) {
 			System.err.println("ERROR: Can't connect to database");
-			System.err.println("Exiting ...");
 			System.exit(1);
 		}
 
 		if (config.getUserID() == -1) {
-			config.setUserID(databaseService.getNextUserId(config));
+			int userID = databaseService.getNextUserId(config);
+
+			// the legendary 'this should never happen' comment
+			if (userID == -1) {
+				System.err.println("ERROR: Something really bad happend while determining the next user id");
+				System.exit(1);
+			}
+
+			config.setUserID(userID);
 			configRepository.save(config);
 		}
+
+		User user = new User(config.getUserID());
+
+		// until a user have more than one passwordlists this is working
+		PasswordList passwordList = new PasswordList(user.getId(), user);
+		user.setPasswordList(passwordList);
+
+		UserRepository userRepository = new UserRepository();
+		userRepository.save(user);
 
 		Options options = new Options();
 

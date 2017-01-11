@@ -56,7 +56,11 @@ public class ConfigService
 		return configRepository.configExists() && config != null;
 	}
 
-	public boolean askToCreateDefaultConfig() {
+	/**
+	 * Asks to create a default config and creates it if it is wanted
+	 *
+	 */
+	public void askToCreateDefaultConfig() {
 		System.out.println("Should the program create a default config? [Y/n] - Caution: This will overwrite an existing one");
 		Scanner scanner = new Scanner(System.in);
 
@@ -65,6 +69,6 @@ public class ConfigService
 			createDefaultConfig();
 		}
 
-		return true;
+		scanner.close();
 	}
 }

@@ -35,18 +35,45 @@ public class EncryptionService
 		return input;
 	}
 
+	/**
+	 * gernates a random password
+	 * uses the default charset and default length
+	 *
+	 * @return String
+	 */
 	public String generatePassword() {
 		return generatePassword(defaultCharset, defaultLength);	
 	}
 
+	/**
+	 * gernates a random password
+	 * uses the default length
+	 *
+	 * @param String
+	 * @return String
+	 */
 	public String generatePassword(String charset) {
 		return generatePassword(charset, defaultLength);
 	}
 
+	/**
+	 * gernates a random password
+	 * uses the default charset
+	 *
+	 * @param int
+	 * @return String
+	 */
 	public String generatePassword(int length) {
 		return generatePassword(defaultCharset, length);
 	}
 
+	/**
+	 * gernates a random password
+	 *
+	 * @param String
+	 * @param int
+	 * @return String
+	 */
 	public String generatePassword(String charset, int length) {
 		StringBuilder sb = new StringBuilder();
 		for (int i= 0; i < length; i++) {
