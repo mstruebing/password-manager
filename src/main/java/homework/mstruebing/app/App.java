@@ -16,7 +16,7 @@ import org.apache.commons.cli.Option;
  *
  */
 // @TODO ERRORCODES
-public class App 
+public class App
 {
 
     public static void main(String[] args) throws Exception
@@ -27,7 +27,7 @@ public class App
 		if (!configService.configIsValid()) {
 			System.out.println("Your config file doesn't exist or isn't valid!");
 			configService.askToCreateDefaultConfig();
-		} 
+		}
 
 		ConfigRepository configRepository = new ConfigRepository();
 		Config config = configRepository.getConfig();
@@ -38,9 +38,9 @@ public class App
 			System.err.println("Start the program again to create a default config or edit the config manually and start again.");
 			System.exit(1);
 		}
-		
+
 		DatabaseService databaseService = new DatabaseService();
-		
+
 		if (!databaseService.testConnection(config)) {
 			System.err.println("ERROR: Can't connect to database");
 			System.exit(1);
