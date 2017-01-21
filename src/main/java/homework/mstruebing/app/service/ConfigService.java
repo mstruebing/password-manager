@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 /**
  * Service class to handle the config
- *
  */
 public class ConfigService
 {
@@ -20,16 +19,16 @@ public class ConfigService
 	/**
 	 * Creates a default config and saves it via repository
 	 *
-	 * @return boolean
+	 * @return boolean whether the saving was successful or not
 	 */
-	public boolean createDefaultConfig() {
+	public boolean createDefaultConfig()
+	{
 		// default db settings
 		String dbHost = "127.0.0.1";
 		int dbPort = 3306;
 		String dbUsername = "admin";
 		String dbPassword = "pass";
 		String dbName = "pw_stuff";
-
 
 		Config config = new Config(dbHost, dbPort, dbUsername, dbPassword, dbName);
 
@@ -39,18 +38,19 @@ public class ConfigService
 		config.setUserID(userID);
 
 		ConfigRepository configRepository = new ConfigRepository();
-		
+
 		return configRepository.save(config);
 	}
 
 	/**
 	 * Checks if a config file exists and if it is valid
 	 *
-	 * @return boolean
+	 * @return boolean whether the config is valid or not
 	 */
-	public boolean configIsValid() {
+	public boolean configIsValid()
+	{
 		ConfigRepository configRepository = new ConfigRepository();
-		
+
 		// I do the parsing there anyway
 		Config config = configRepository.getConfig();
 		return configRepository.configExists() && config != null;
@@ -58,9 +58,9 @@ public class ConfigService
 
 	/**
 	 * Asks to create a default config and creates it if it is wanted
-	 *
 	 */
-	public void askToCreateDefaultConfig() {
+	public void askToCreateDefaultConfig()
+	{
 		System.out.println("Should the program create a default config? [Y/n] - Caution: This will overwrite an existing one");
 		Scanner scanner = new Scanner(System.in);
 

@@ -27,15 +27,16 @@ public class ConfigRepository extends Repository<Config>
 	 * @return boolean
 	 */
 	@Override
-	public boolean save(Config config) {
+	public boolean save(Config config)
+	{
 		JSONObject jsonConfig = new JSONObject();
 
 		// Build up the json config object
 		for (Field field : config.getClass().getDeclaredFields()) {
 			try {
 				// set cool sneaky accessible modifier to public :)
-				field.setAccessible(true); 
-				Object value = field.get(config); 
+				field.setAccessible(true);
+				Object value = field.get(config);
 				if (value != null) {
 					jsonConfig.put(field.getName(), value);
 				}
@@ -57,7 +58,7 @@ public class ConfigRepository extends Repository<Config>
 			System.err.println("ERROR: " + e.getMessage());
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -70,7 +71,8 @@ public class ConfigRepository extends Repository<Config>
 	 * @TODO Make use of config
 	 */
 	@Override
-	public boolean remove(Config config) {
+	public boolean remove(Config config)
+	{
 		try {
 			File file = new File(configFile);
 			file.delete();
@@ -78,7 +80,7 @@ public class ConfigRepository extends Repository<Config>
 			System.err.println("ERROR: " + e.getMessage());
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -101,7 +103,8 @@ public class ConfigRepository extends Repository<Config>
 	 *
 	 * @return Config
 	 */
-	public Config getConfig() {
+	public Config getConfig()
+	{
 		// declare config due visibility
 		Config config;
 

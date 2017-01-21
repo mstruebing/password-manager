@@ -19,9 +19,8 @@ import org.apache.commons.cli.Option;
 public class App
 {
 
-		public static void main(String[] args) throws Exception
-		{
-
+	public static void main(String[] args) throws Exception
+	{
 		ConfigService configService = new ConfigService();
 
 		if (!configService.configIsValid()) {
@@ -61,7 +60,7 @@ public class App
 
 		User user = new User(config.getUserID());
 
-		// until a user have more than one passwordlists this is working
+		// until a user have not more than one passwordlists this is working
 		PasswordList passwordList = new PasswordList(user.getId(), user);
 		user.setPasswordList(passwordList);
 
@@ -100,10 +99,10 @@ public class App
 		}
 
 		boolean generatePassword = cmd.hasOption("generate");
-		System.out.println(generatePassword);
+		// System.out.println(generatePassword);
 		if (generatePassword) {
 			EncryptionService encryptionService = new EncryptionService();
-			System.out.println(encryptionService.generatePassword());
+			// System.out.println(encryptionService.generatePassword());
 		}
     }
 }

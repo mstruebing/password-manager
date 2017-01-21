@@ -33,8 +33,8 @@ public class EncryptionServiceTest extends TestCase
 	 */
 	public void testEncryption()
 	{
-		String toEncrypt = "FOR NOW IT IS THE SAME";
-		String encrypted = "FOR NOW IT IS THE SAME";
+		String toEncrypt = "ENCODETHIS";
+		String encrypted = "RU5DT0RFVEhJUw==";
 		EncryptionService encryptionService = new EncryptionService();
 		assertTrue(encryptionService.encrypt(toEncrypt).equals(encrypted));
 	}
@@ -44,8 +44,8 @@ public class EncryptionServiceTest extends TestCase
 	 */
 	public void testDecryption()
 	{
-		String toDecrypt = "FOR NOW IT IS THE SAME";
-		String decrypted = "FOR NOW IT IS THE SAME";
+		String toDecrypt = "REVDT0RFVEhJUw==";
+		String decrypted = "DECODETHIS";
 		EncryptionService encryptionService = new EncryptionService();
 		assertTrue(encryptionService.decrypt(toDecrypt).equals(decrypted));
 	}

@@ -1,0 +1,3 @@
+let g:syntastic_java_javac_classpath = './target/my-app-1.0-SNAPSHOT.jar'
+let g:syntastic_java_javac_classpath = './target/classes/'
+
