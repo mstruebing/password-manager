@@ -16,39 +16,51 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 
 	public boolean save(T entity)
 	{
-		System.out.println("should save into: " + TABLENAME);
+		String stmnt = "INSERT INTO " + TABLENAME;
+		String fields = "";
+		String values = "";
+
+		int index = 0;
+
 		for (Field field : entity.getClass().getDeclaredFields()) {
 			try {
 				// set cool sneaky accessible modifier to public :)
 				field.setAccessible(true);
 				Object value = field.get(entity);
+				System.out.println( value.getClass());
 
 				if (value != null) {
 					String targetField = field.getName();
 					String type = value.getClass().getName();
 					boolean isPrimitive = isPrimitive(type);
-					System.out.println(targetField);
 
+					// we need to get the id if the type of the field is not a
+					// primitive datatype
 					if (!isPrimitive) {
 						String targetMethod = getTargetMethod(targetField);
 						Method[] methods = ((Object)entity).getClass().getMethods();
 
 						for (Method method : methods) {
 							if (method.getName().equals(targetMethod)) {
-								System.out.println("heee");
-								System.out.println(method.getName());
 								Object notPrimitiveType = method.invoke(entity);
-								System.out.println(((PasswordList)notPrimitiveType).getId());
+								value = ((PasswordList)notPrimitiveType).getId();
 							}
 						}
 					}
+
+					fields += (index == 0) ? targetField : ", " + targetField;
+					values += (index == 0) ? value.toString() : ", " + value.toString();
 				}
 			} catch (Exception e) {
 				System.err.println("ERROR: " + e.getMessage());
 				return false;
 			}
-		}
 
+			index++;
+		}
+		stmnt += " (" + fields + ") VALUES(" + values + ")";
+
+		System.out.println(stmnt);
 		return true;
 	}
 
