@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.44, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: pw_stuff
 -- ------------------------------------------------------
--- Server version	5.5.44-0ubuntu0.14.04.1
+-- Server version	5.7.17-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,14 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `pw_stuff`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `pw_stuff` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `pw_stuff`;
-
---
 -- Table structure for table `PasswordListRepository`
 --
 
@@ -32,7 +24,7 @@ DROP TABLE IF EXISTS `PasswordListRepository`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `PasswordListRepository` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userID` int(10) unsigned DEFAULT NULL,
+  `user` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -55,7 +47,7 @@ DROP TABLE IF EXISTS `PasswordRepository`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `PasswordRepository` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `passwordListID` int(10) unsigned DEFAULT NULL,
+  `passwordList` int(10) unsigned DEFAULT NULL,
   `title` varchar(100) DEFAULT NULL,
   `username` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
@@ -81,7 +73,7 @@ DROP TABLE IF EXISTS `UserRepository`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `UserRepository` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `passwordListID` int(10) unsigned DEFAULT NULL,
+  `passwordList` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -104,4 +96,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-19 13:43:14
+-- Dump completed on 2017-01-24 14:26:47
