@@ -31,8 +31,10 @@ target: $(SOURCES)
 test: $(SOURCES) $(TEST_SOURCES)
 	$(TEST)
 
-setup: Build/GitHooks/pre-commit
+setup: Build/GitHooks/pre-commit Build/Database/databaseDump.sql
 	cd .git/hooks && ln -sf ../../Build/GitHooks/pre-commit
+	echo 'CREATE DATABASE `pw_stuff`' | mysql -uroot -p
+	mysql -uroot -p pw_stuff < Build/Database/databaseDump.sql
 
 clean: test docs start
 	rm -Rf target
