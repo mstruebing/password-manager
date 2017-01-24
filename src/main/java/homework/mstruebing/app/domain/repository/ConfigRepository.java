@@ -27,6 +27,8 @@ public class ConfigRepository extends Repository<Config>
 	 * @return boolean
 	 */
 	@Override
+	@SuppressWarnings("unchecked")  // because JSONObject uses raw type collections internally
+									// see http://stackoverflow.com/questions/24548656/unchecked-call-to-adde-as-a-member-of-the-raw-type-arraylist-and-hashmap
 	public boolean save(Config config)
 	{
 		JSONObject jsonConfig = new JSONObject();

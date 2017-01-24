@@ -91,7 +91,9 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 
 	protected String getTargetMethod(String targetField)
 	{
-		String targetMethod = "get" + Character.toUpperCase(targetField.charAt(0)) + targetField.substring(1);
+		String targetMethod = "get" +
+			Character.toUpperCase(targetField.charAt(0)) +
+			targetField.substring(1);
 		return targetMethod;
 	}
 }
