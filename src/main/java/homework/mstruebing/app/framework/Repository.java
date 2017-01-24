@@ -24,8 +24,6 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 
 		for (Field field : entity.getClass().getDeclaredFields()) {
 			try {
-				// set cool sneaky accessible modifier to public :)
-				field.setAccessible(true);
 				Object value = field.get(entity);
 				System.out.println( value.getClass());
 
@@ -58,6 +56,7 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 
 			index++;
 		}
+
 		stmnt += " (" + fields + ") VALUES(" + values + ")";
 
 		System.out.println(stmnt);

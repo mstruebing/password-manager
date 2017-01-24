@@ -34,8 +34,6 @@ public class ConfigRepository extends Repository<Config>
 		// Build up the json config object
 		for (Field field : config.getClass().getDeclaredFields()) {
 			try {
-				// set cool sneaky accessible modifier to public :)
-				field.setAccessible(true);
 				Object value = field.get(config);
 				if (value != null) {
 					jsonConfig.put(field.getName(), value);
