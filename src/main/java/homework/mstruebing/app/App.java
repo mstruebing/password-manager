@@ -18,7 +18,6 @@ import org.apache.commons.cli.Option;
 // @TODO ERRORCODES
 public class App
 {
-
 	public static void main(String[] args) throws Exception
 	{
 		ConfigService configService = new ConfigService();

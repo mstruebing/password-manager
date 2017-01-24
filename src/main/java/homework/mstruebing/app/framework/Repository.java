@@ -27,6 +27,7 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 					String targetField = field.getName();
 					String type = value.getClass().getName();
 					boolean isPrimitive = isPrimitive(type);
+					System.out.println(targetField);
 
 					if (!isPrimitive) {
 						String targetMethod = getTargetMethod(targetField);
