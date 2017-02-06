@@ -39,13 +39,13 @@ public class App
 
 		DatabaseService databaseService = new DatabaseService();
 
-		if (!databaseService.testConnection(config)) {
+		if (!databaseService.testConnection()) {
 			System.err.println("ERROR: Can't connect to database");
 			System.exit(1);
 		}
 
 		if (config.getUserID() == -1) {
-			int userID = databaseService.getNextUserId(config);
+			int userID = databaseService.getNextUserId();
 
 			// the legendary 'this should never happen' comment
 			if (userID == -1) {

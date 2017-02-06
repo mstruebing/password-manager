@@ -15,12 +15,13 @@ public class DatabaseService
 	/**
 	 * Connects to the database
 	 *
-	 * @param Config config - the config
 	 * @return Connection - the database connection
 	 */
-	public Connection getConnection(Config config)
+	protected Connection getConnection()
 	{
 		Connection connection = null;
+		ConfigRepository configRepository = new ConfigRepository();
+		Config config = configRepository.getConfig();
 
 		String url = "jdbc:mysql://" + config.getDbHost() + ":" + config.getDbPort() + "/" + config.getDbName();
 		String user = config.getDbUsername();
@@ -40,7 +41,7 @@ public class DatabaseService
 	 *
 	 * @param Connection connection - the database connection
 	 */
-	public void disconnect(Connection connection)
+	protected void disconnect(Connection connection)
 	{
 		try {
 			connection.close();
@@ -52,12 +53,11 @@ public class DatabaseService
 	/**
 	 * Tests the database connection
 	 *
-	 * @param Config config - the config
 	 * @return boolean - whether the program is able to connect to the database or not
 	 */
-	public boolean testConnection(Config config)
+	public boolean testConnection()
 	{
-		Connection connection = getConnection(config);
+		Connection connection = getConnection();
 
 		if (connection != null) {
 			disconnect(connection);
@@ -74,9 +74,9 @@ public class DatabaseService
 	 * @param Config config - the config
 	 * @return int - the next useable user id
 	 */
-	public int getNextUserId(Config config)
+	public int getNextUserId()
 	{
-		Connection connection = getConnection(config);
+		Connection connection = getConnection();
 		ResultSet rs = null;
 
 		if (null != connection) {
@@ -99,5 +99,27 @@ public class DatabaseService
 		}
 
 		return -1;
+	}
+
+	public boolean executeStatement(String stmnt)
+	{
+		System.out.println(stmnt);
+		Connection connection = getConnection();
+
+		if (null != connection) {
+			PreparedStatement pst = null;
+
+			try {
+				pst = connection.prepareStatement(stmnt);
+				pst.execute();
+				return true;
+			} catch (SQLException e) {
+				System.err.println("ERROR" + e.getMessage());
+			} finally {
+				disconnect(connection);
+			}
+		}
+
+		return false;
 	}
 }

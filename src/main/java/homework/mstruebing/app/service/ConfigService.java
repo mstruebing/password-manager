@@ -34,7 +34,7 @@ public class ConfigService
 
 		// get the next free userid
 		DatabaseService databaseService = new DatabaseService();
-		int userID = databaseService.getNextUserId(config);
+		int userID = databaseService.getNextUserId();
 		config.setUserID(userID);
 
 		ConfigRepository configRepository = new ConfigRepository();

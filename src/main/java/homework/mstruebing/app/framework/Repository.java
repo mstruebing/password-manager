@@ -13,35 +13,36 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 	protected final String TABLENAME = REPOSITORYNAME.substring(REPOSITORYNAME.lastIndexOf('.') + 1);
 
 	protected final String[] primitiveTypes = {"java.lang.Integer", "java.lang.String"};
+	// Config has an extra repository so it isn't needed here
 	protected final String[] notPrimitiveTypes = {"User", "Password", "PasswordList"};
 
-	public boolean save(T entity)
-	{
-		String stmnt = "INSERT INTO " + TABLENAME;
-		String fields = "";
-		String values = "";
+    public boolean save(T entity)
+    {
+        String stmnt = "INSERT INTO " + TABLENAME;
+        String fields = "";
+        String values = "";
 
-		int index = 0;
+        int index = 0;
 
-		for (Field field : entity.getClass().getDeclaredFields()) {
-			try {
-				Object value = field.get(entity);
-				System.out.println( value.getClass());
+        for (Field field : entity.getClass().getDeclaredFields()) {
+            try {
+                Object value = field.get(entity);
+                System.out.println( value.getClass());
 
-				if (value != null) {
-					String targetField = field.getName();
-					String type = value.getClass().getName();
-					boolean isPrimitive = isPrimitive(type);
+                if (value != null) {
+                    String targetField = field.getName();
+                    String type = value.getClass().getName();
+                    boolean isPrimitive = isPrimitive(type);
 
-					// we need to get the id if the type of the field is not a
-					// primitive datatype
-					if (!isPrimitive) {
-						String targetMethod = getTargetMethod(targetField);
-						Method[] methods = ((Object)entity).getClass().getMethods();
+                    // we need to get the id if the type of the field is not a
+                    // primitive datatype
+                    if (!isPrimitive) {
+                        String targetMethod = getTargetMethod(targetField);
+                        Method[] methods = ((Object)entity).getClass().getMethods();
 
-						for (Method method : methods) {
-							if (method.getName().equals(targetMethod)) {
-								Object notPrimitiveType = method.invoke(entity);
+                        for (Method method : methods) {
+                            if (method.getName().equals(targetMethod)) {
+                                Object notPrimitiveType = method.invoke(entity);
 
                                 // this is real shit code!
                                 // dont ever do this in real projects!
@@ -51,25 +52,25 @@ public abstract class Repository<T> implements RepositoryInterface<T>
                                         break;
                                     }
                                 }
-							}
-						}
-					}
+                            }
+                        }
+                    }
 
-					fields += (index == 0) ? targetField : ", " + targetField;
-					values += (index == 0) ? value.toString() : ", " + value.toString();
-				}
-			} catch (Exception e) {
-				System.err.println("ERROR: " + e.getMessage());
-				return false;
-			}
+                    fields += (index == 0) ? targetField : ", " + targetField;
+                    values += (index == 0) ? value.toString() : ", " + value.toString();
+                }
+            } catch (Exception e) {
+                System.err.println("ERROR: " + e.getMessage());
+                return false;
+            }
 
-			index++;
-		}
+            index++;
+        }
 
-		stmnt += " (" + fields + ") VALUES(" + values + ")";
+        stmnt += " (" + fields + ") VALUES(" + values + ")";
+        DatabaseService databaseService = new DatabaseService();
 
-		System.out.println(stmnt);
-		return true;
+        return databaseService.executeStatement(stmnt);
 	}
 
 	public boolean remove(T entity)
