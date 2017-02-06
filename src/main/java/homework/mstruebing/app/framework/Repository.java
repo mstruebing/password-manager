@@ -13,6 +13,7 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 	protected final String TABLENAME = REPOSITORYNAME.substring(REPOSITORYNAME.lastIndexOf('.') + 1);
 
 	protected final String[] primitiveTypes = {"java.lang.Integer", "java.lang.String"};
+	protected final String[] notPrimitiveTypes = {"User", "Password", "PasswordList"};
 
 	public boolean save(T entity)
 	{
@@ -41,7 +42,15 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 						for (Method method : methods) {
 							if (method.getName().equals(targetMethod)) {
 								Object notPrimitiveType = method.invoke(entity);
-								value = ((PasswordList)notPrimitiveType).getId();
+
+                                // this is real shit code!
+                                // dont ever do this in real projects!
+                                for (int i = 0; i < notPrimitiveTypes.length; i++) {
+                                    value = getNotPrimitiveTypeId(notPrimitiveType, i);
+                                    if ((int)value != 0) {
+                                        break;
+                                    }
+                                }
 							}
 						}
 					}
@@ -96,4 +105,42 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 			targetField.substring(1);
 		return targetMethod;
 	}
+
+    /**
+     * I think this is the worst function I've ever written.
+     *
+     */
+    protected int getNotPrimitiveTypeId(Object notPrimitiveType, int i) {
+        int id = 0;
+        switch (i) {
+            case 0:
+                try {
+                    id = ((User)notPrimitiveType).getId();
+                } catch (Exception e) {
+                    id = 0;
+                } finally {
+                    break;
+                }
+            case 1:
+                try {
+                    id = ((Password)notPrimitiveType).getId();
+                } catch (Exception e) {
+                    id = 0;
+                } finally {
+                    break;
+                }
+            case 2:
+                try {
+                    id = ((PasswordList)notPrimitiveType).getId();
+                } catch (Exception e) {
+                    id = 0;
+                } finally {
+                    break;
+                }
+            default:
+                id = 0;
+        }
+
+        return id;
+    }
 }
