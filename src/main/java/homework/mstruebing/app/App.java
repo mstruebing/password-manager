@@ -57,14 +57,36 @@ public class App
 			configRepository.save(config);
 		}
 
-		User user = new User(config.getUserID());
+		UserRepository userRepository = new UserRepository();
+		// User user = userRepository.findById(config.getUserID());
+		User user = null;
+
+		if (user == null) {
+			user = new User(config.getUserID());
+			System.out.println( "Tttt" );
+		}
+
 
 		// until a user have not more than one passwordlists this is working
-		PasswordList passwordList = new PasswordList(user.getId(), user);
-		user.setPasswordList(passwordList);
+		// PasswordList passwordList = new PasswordList(user.getId(), user);
+		// user.setPasswordList(passwordList);
 
-		UserRepository userRepository = new UserRepository();
-		userRepository.save(user);
+		// this is not a satisfying solution
+		// i check if the next useable user id is the same as the actual user
+		// and save the user to the database if so
+		// i should implement a direct lookup if the user is already in the database
+		// @TODO
+		// if (databaseService.getNextUserId() == user.getId()) {
+		// 	UserRepository userRepository = new UserRepository();
+		// 	userRepository.save(user);
+		// 	PasswordListRepository passwordListRepository = new PasswordListRepository();
+		// 	passwordListRepository.save(passwordList);
+		// }
+
+
+		// PasswordRepository passwordRepository = new PasswordRepository();
+		// Password password = new Password(1, passwordList, "Google", "1234");
+		// passwordRepository.save(password);
 
 		Options options = new Options();
 

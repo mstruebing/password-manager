@@ -90,7 +90,6 @@ public class DatabaseService
 				pst = connection.prepareStatement(getLastInsertedId);
 				rs = pst.executeQuery();
 				rs.next();
-				return rs.getInt(1);
 			} catch (SQLException e) {
 				System.err.println("ERROR" + e.getMessage());
 			} finally {
@@ -114,7 +113,7 @@ public class DatabaseService
 				pst.execute();
 				return true;
 			} catch (SQLException e) {
-				System.err.println("ERROR" + e.getMessage());
+				System.err.println("ERROR: " + e.getMessage());
 			} finally {
 				disconnect(connection);
 			}

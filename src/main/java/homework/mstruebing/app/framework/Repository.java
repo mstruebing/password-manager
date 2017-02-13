@@ -2,6 +2,7 @@ package homework.mstruebing.app;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.sql.ResultSet;
 
 /**
  * Abstract Repository class
@@ -27,7 +28,6 @@ public abstract class Repository<T> implements RepositoryInterface<T>
         for (Field field : entity.getClass().getDeclaredFields()) {
             try {
                 Object value = field.get(entity);
-                System.out.println( value.getClass());
 
                 if (value != null) {
                     String targetField = field.getName();
@@ -57,9 +57,15 @@ public abstract class Repository<T> implements RepositoryInterface<T>
                     }
 
                     fields += (index == 0) ? targetField : ", " + targetField;
-                    values += (index == 0) ? value.toString() : ", " + value.toString();
+					if (type != "java.lang.String") {
+						values += (index == 0) ? value.toString() : ", " + value.toString();
+					} else {
+						values += (index == 0) ? "'" +  value.toString() + "'" : ", '" + value.toString() + "'";
+					}
                 }
             } catch (Exception e) {
+				System.out.println( fields );
+				System.out.println( values );
                 System.err.println("ERROR: " + e.getMessage());
                 return false;
             }
@@ -119,25 +125,25 @@ public abstract class Repository<T> implements RepositoryInterface<T>
                     id = ((User)notPrimitiveType).getId();
                 } catch (Exception e) {
                     id = 0;
-                } finally {
-                    break;
                 }
+
+				break;
             case 1:
                 try {
                     id = ((Password)notPrimitiveType).getId();
                 } catch (Exception e) {
                     id = 0;
-                } finally {
-                    break;
                 }
+
+				break;
             case 2:
                 try {
                     id = ((PasswordList)notPrimitiveType).getId();
                 } catch (Exception e) {
                     id = 0;
-                } finally {
-                    break;
                 }
+
+				break;
             default:
                 id = 0;
         }
