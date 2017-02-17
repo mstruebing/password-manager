@@ -23,19 +23,12 @@ public class App
 		ConfigService configService = new ConfigService();
 
 		if (!configService.configIsValid()) {
-			System.out.println("Your config file doesn't exist or isn't valid!");
+			System.err.println("Your config file doesn't exist or isn't valid!");
 			configService.askToCreateDefaultConfig();
 		}
 
 		ConfigRepository configRepository = new ConfigRepository();
 		Config config = configRepository.getConfig();
-
-		// just in case something has manipulated the config file in between hrhr
-		if (config == null) {
-			System.err.println("Your config file doesn't exist or isn't valid!");
-			System.err.println("Start the program again to create a default config or edit the config manually and start again.");
-			System.exit(1);
-		}
 
 		DatabaseService databaseService = new DatabaseService();
 
@@ -45,7 +38,7 @@ public class App
 		}
 
 		if (config.getUserID() == -1) {
-			int userID = databaseService.getNextUserId();
+			int userID = databaseService.getNextUsableUserId();
 
 			// the legendary 'this should never happen' comment
 			if (userID == -1) {
@@ -58,35 +51,23 @@ public class App
 		}
 
 		UserRepository userRepository = new UserRepository();
-		// User user = userRepository.findById(config.getUserID());
-		User user = null;
+		User user = userRepository.findById(config.getUserID());
+
+		PasswordListRepository passwordListRepository = new PasswordListRepository();
+		PasswordRepository passwordRepository = new PasswordRepository();
 
 		if (user == null) {
 			user = new User(config.getUserID());
-			System.out.println( "Tttt" );
+
+			// until a user have not more than one passwordlists this is working
+			PasswordList passwordList = new PasswordList(user.getId(), user);
+			user.setPasswordList(passwordList);
+			userRepository.save(user);
+			passwordListRepository.save(passwordList);
 		}
 
-
-		// until a user have not more than one passwordlists this is working
-		// PasswordList passwordList = new PasswordList(user.getId(), user);
-		// user.setPasswordList(passwordList);
-
-		// this is not a satisfying solution
-		// i check if the next useable user id is the same as the actual user
-		// and save the user to the database if so
-		// i should implement a direct lookup if the user is already in the database
-		// @TODO
-		// if (databaseService.getNextUserId() == user.getId()) {
-		// 	UserRepository userRepository = new UserRepository();
-		// 	userRepository.save(user);
-		// 	PasswordListRepository passwordListRepository = new PasswordListRepository();
-		// 	passwordListRepository.save(passwordList);
-		// }
-
-
-		// PasswordRepository passwordRepository = new PasswordRepository();
-		// Password password = new Password(1, passwordList, "Google", "1234");
-		// passwordRepository.save(password);
+		Password password = new Password(1, user.getPasswordList(), "Google", "name", "1234");
+		passwordRepository.save(password);
 
 		Options options = new Options();
 

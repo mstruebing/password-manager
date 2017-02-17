@@ -17,7 +17,7 @@ public class DatabaseService
 	 *
 	 * @return Connection - the database connection
 	 */
-	protected Connection getConnection()
+	public Connection getConnection()
 	{
 		Connection connection = null;
 		ConfigRepository configRepository = new ConfigRepository();
@@ -41,7 +41,7 @@ public class DatabaseService
 	 *
 	 * @param Connection connection - the database connection
 	 */
-	protected void disconnect(Connection connection)
+	public void disconnect(Connection connection)
 	{
 		try {
 			connection.close();
@@ -71,10 +71,9 @@ public class DatabaseService
 	/**
 	 * Get the next useable user id
 	 *
-	 * @param Config config - the config
 	 * @return int - the next useable user id
 	 */
-	public int getNextUserId()
+	public int getNextUsableUserId()
 	{
 		Connection connection = getConnection();
 		ResultSet rs = null;
@@ -90,6 +89,7 @@ public class DatabaseService
 				pst = connection.prepareStatement(getLastInsertedId);
 				rs = pst.executeQuery();
 				rs.next();
+				return rs.getInt(1);
 			} catch (SQLException e) {
 				System.err.println("ERROR" + e.getMessage());
 			} finally {
