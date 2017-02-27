@@ -66,8 +66,10 @@ public class App
 			passwordListRepository.save(passwordList);
 		}
 
-		Password password = new Password(1, user.getPasswordList(), "Google", "name", "1234");
+		Password password = new Password(2, user.getPasswordList(), "Googler", "name", "1234");
 		passwordRepository.save(password);
+
+		System.out.println( passwordRepository.count() );
 
 		Options options = new Options();
 
@@ -75,9 +77,9 @@ public class App
 		// int opt
 		// argument after
 		// description
-//        Option input = new Option("i", "input", true, "input file path");
-//        input.setRequired(true);
-//        options.addOption(input);
+       // Option input = new Option("i", "input", true, "input file path");
+       // input.setRequired(true);
+       // options.addOption(input);
 
 		Option add = new Option("a", "add", false, "add a new password");
 		Option generate = new Option("g", "generate", false, "outputs a generated password");
@@ -101,10 +103,15 @@ public class App
 		}
 
 		boolean generatePassword = cmd.hasOption("generate");
+		boolean addPassword = cmd.hasOption("add");
 		// System.out.println(generatePassword);
 		if (generatePassword) {
 			EncryptionService encryptionService = new EncryptionService();
 			// System.out.println(encryptionService.generatePassword());
+		}
+
+		if (addPassword) {
+			System.out.println( "Some add stuff" );
 		}
     }
 }
