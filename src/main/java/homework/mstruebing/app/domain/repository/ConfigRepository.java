@@ -16,14 +16,12 @@ import java.lang.reflect.Field;
  */
 public class ConfigRepository extends Repository<Config>
 {
-
-	// @TODO GET REAL CONFIG FILE
 	protected final String configFile = System.getProperty("user.home").concat("/.pw_man_max.conf");
 
 	/**
 	 * Saves the config file to filesystem
 	 *
-	 * @param Config
+	 * @param config the config object to save to the filesystem
 	 * @return boolean
 	 */
 	@Override
@@ -65,10 +63,8 @@ public class ConfigRepository extends Repository<Config>
 	/**
 	 * Deletes the config from filesystem
 	 *
-	 * @param config
-	 * @return boolean
-	 *
-	 * @TODO Make use of config
+	 * @param config the config to remove
+	 * @return whether it was sucessful or not
 	 */
 	@Override
 	public boolean remove(Config config)
@@ -88,7 +84,7 @@ public class ConfigRepository extends Repository<Config>
 	/**
 	 * Checks if a config file exists
 	 *
-	 * @return boolean
+	 * @return whether a config file exists or not
 	 */
 	public boolean configExists() {
 		File file = new File(configFile);
@@ -96,16 +92,13 @@ public class ConfigRepository extends Repository<Config>
 	}
 
 	/**
-	 * @TODO simplify parsing via reflection or smth?
-	 *
 	 * Returns a Config object with all properties set
 	 * CAUTION: returns null if an exception occurs
 	 *
-	 * @return Config
+	 * @return the ready to use parsed config object
 	 */
 	public Config getConfig()
 	{
-		// declare config due visibility
 		Config config;
 
 		try {

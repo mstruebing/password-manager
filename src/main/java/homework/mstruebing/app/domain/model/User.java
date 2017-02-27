@@ -6,19 +6,10 @@ import java.util.Collection;
  * A model which represents an user
  *
  */
-public class User 
+public class User
 {
 	protected int id;
 	protected PasswordList passwordList;
-	
-
-	/**
-	 *  @TODO later
-	 *	protected String username;
-	 *	protected String accessKey;
-	 *	protected String email;
-	 *	protected Collection<PasswordList> passwordLists;
-	 */
 
 	public User(int id) {
 		this.id = id;

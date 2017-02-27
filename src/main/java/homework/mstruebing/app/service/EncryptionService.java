@@ -10,16 +10,14 @@ import java.io.UnsupportedEncodingException;
  */
 public class EncryptionService
 {
-
-	// @TODO config
 	protected final int defaultLength = 16;
 	protected final String defaultCharset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890";
 
 	/**
 	 * encrypts a given string
 	 *
-	 * @param String input - the string to encrypt
-	 * @return String - the encrypted string
+	 * @param input the string to encrypt
+	 * @return the encrypted string
 	 *
 	 */
 	public String encrypt(String input)
@@ -38,8 +36,8 @@ public class EncryptionService
 	/**
 	 * decrypts a given string
 	 *
-	 * @param String input - the string to decrypt
-	 * @return String - the decrypted string
+	 * @param encodedString the string to decrypt
+	 * @return the decrypted string
 	 *
 	 */
 	public String decrypt(String encodedString)
@@ -61,7 +59,7 @@ public class EncryptionService
 	 * gernates a random password
 	 * uses the default charset and default length
 	 *
-	 * @return String - a random password
+	 * @return a random password
 	 */
 	public String generatePassword()
 	{
@@ -72,8 +70,8 @@ public class EncryptionService
 	 * gernates a random password
 	 * uses the default length
 	 *
-	 * @param String
-	 * @return String
+	 * @param charset the charset to use
+	 * @return a randomly generated password
 	 */
 	public String generatePassword(String charset)
 	{
@@ -84,8 +82,8 @@ public class EncryptionService
 	 * gernates a random password
 	 * uses the default charset
 	 *
-	 * @param int
-	 * @return String
+	 * @param length the length of the generated password
+	 * @return a randomly generated password
 	 */
 	public String generatePassword(int length)
 	{
@@ -95,9 +93,9 @@ public class EncryptionService
 	/**
 	 * gernates a random password
 	 *
-	 * @param String
-	 * @param int
-	 * @return String
+	 * @param charset the charset to use
+	 * @param length the length of the generated password
+	 * @return a randomly generated password
 	 */
 	public String generatePassword(String charset, int length)
 	{

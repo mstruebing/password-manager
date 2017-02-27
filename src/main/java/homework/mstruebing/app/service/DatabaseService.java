@@ -15,7 +15,7 @@ public class DatabaseService
 	/**
 	 * Connects to the database
 	 *
-	 * @return Connection - the database connection
+	 * @return the database connection
 	 */
 	public Connection getConnection()
 	{
@@ -39,7 +39,7 @@ public class DatabaseService
 	/**
 	 * Closes the database connection
 	 *
-	 * @param Connection connection - the database connection
+	 * @param connection the database connection
 	 */
 	public void disconnect(Connection connection)
 	{
@@ -53,7 +53,7 @@ public class DatabaseService
 	/**
 	 * Tests the database connection
 	 *
-	 * @return boolean - whether the program is able to connect to the database or not
+	 * @return whether the program is able to connect to the database or not
 	 */
 	public boolean testConnection()
 	{
@@ -71,7 +71,7 @@ public class DatabaseService
 	/**
 	 * Get the next useable user id
 	 *
-	 * @return int - the next useable user id
+	 * @return the next useable user id
 	 */
 	public int getNextUsableUserId()
 	{
@@ -100,6 +100,12 @@ public class DatabaseService
 		return -1;
 	}
 
+	/**
+	 * Executes a mysql statement
+	 *
+	 * @param stmnt the statement to execute
+	 * @return whether the statement was Successfully executed or not
+	 */
 	public boolean executeStatement(String stmnt)
 	{
 		System.out.println(stmnt);

@@ -20,6 +20,12 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 	// Config has an extra repository so it isn't needed here
 	protected final String[] notPrimitiveTypes = {"User", "Password", "PasswordList"};
 
+	/**
+	 * Saves an entity to the database
+	 *
+	 * @param entity the object to store
+	 * @return whether it was sucessful or not
+	 */
     public boolean save(T entity)
     {
         String stmnt = "INSERT INTO " + TABLENAME;
@@ -90,6 +96,12 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 		return true;
 	}
 
+	/**
+	 * Returns the count of the specific repository
+	 * and -1 in case of a failure
+	 *
+	 * @return int
+	 */
 	public int count()
 	{
 		DatabaseService databaseService = new DatabaseService();
@@ -113,6 +125,12 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 		return count;
 	}
 
+	/**
+	 * Tests if type is a primitive datatype or not
+	 *
+	 * @param type the datatype to test
+	 * @return whether the datatype is a primitive one or not
+	 */
 	protected boolean isPrimitive(String type)
 	{
 		boolean isPrimitive = false;
@@ -127,6 +145,12 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 		return isPrimitive;
 	}
 
+	/**
+	 * Returns the get method as a string from an object property
+	 *
+	 * @param targetField the field to construct the get message on
+	 * @return the getMethod
+	 */
 	protected String getTargetMethod(String targetField)
 	{
 		String targetMethod = "get" +
@@ -137,6 +161,10 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 
     /**
      * I think this is the worst function I've ever written.
+	 *
+	 * @param notPrimitiveType the object to operate on
+	 * @param i the iteration to use for choosing the objects
+	 * @return the id or 0 if it is not the right object
      *
      */
     protected int getNotPrimitiveTypeId(Object notPrimitiveType, int i) {
