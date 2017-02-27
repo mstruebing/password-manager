@@ -92,25 +92,23 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 
 	public int count()
 	{
-		System.out.println("should count in: " + TABLENAME);
 		DatabaseService databaseService = new DatabaseService();
 		Connection connection = databaseService.getConnection();
-
-		String stmnt = "SELECT COUNT(*) FROM " + TABLENAME;
-		PreparedStatement pst = null;
 		int count = -1;
 
-		try {
-			pst = connection.prepareStatement(stmnt);
-			ResultSet rs = pst.executeQuery();
-			rs.next();
-			count = rs.getInt(1);
-		} catch (SQLException e) {
-			System.err.println("ERROR: " + e.getMessage());
-		} finally {
-			databaseService.disconnect(connection);
+		if (connection != null) {
+			try {
+				String stmnt = "SELECT COUNT(*) FROM " + TABLENAME;
+				PreparedStatement pst = connection.prepareStatement(stmnt);
+				ResultSet rs = pst.executeQuery();
+				rs.next();
+				count = rs.getInt(1);
+			} catch (SQLException e) {
+				System.err.println("ERROR: " + e.getMessage());
+			} finally {
+				databaseService.disconnect(connection);
+			}
 		}
-
 
 		return count;
 	}
