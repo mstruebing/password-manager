@@ -108,7 +108,6 @@ public class DatabaseService
 	 */
 	public boolean executeStatement(String stmnt)
 	{
-		System.out.println(stmnt);
 		Connection connection = getConnection();
 
 		if (null != connection) {

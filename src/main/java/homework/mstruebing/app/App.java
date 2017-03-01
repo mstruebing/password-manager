@@ -15,7 +15,6 @@ import org.apache.commons.cli.Option;
  * Hello world!
  *
  */
-// @TODO ERRORCODES
 public class App
 {
 	public static void main(String[] args) throws Exception
@@ -68,8 +67,7 @@ public class App
 
 		Password password = new Password(2, user.getPasswordList(), "Googler", "name", "1234");
 		passwordRepository.save(password);
-
-		System.out.println( passwordRepository.count() );
+		System.out.println( passwordRepository.remove(password) );
 
 		Options options = new Options();
 

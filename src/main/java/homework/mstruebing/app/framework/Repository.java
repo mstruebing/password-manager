@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 
 /**
  * Abstract Repository class
- *
  */
 public abstract class Repository<T> implements RepositoryInterface<T>
 {
@@ -21,7 +20,7 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 	protected final String[] notPrimitiveTypes = {"User", "Password", "PasswordList"};
 
 	/**
-	 * Saves an entity to the database
+	 * Saves an entity to the persistence layer
 	 *
 	 * @param entity the object to store
 	 * @return whether it was sucessful or not
@@ -71,7 +70,9 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 					} else {
 						values += (index == 0) ? "'" +  value.toString() + "'" : ", '" + value.toString() + "'";
 					}
-                }
+				} else {
+					break;
+				}
             } catch (Exception e) {
 				System.out.println( fields );
 				System.out.println( values );
@@ -88,10 +89,56 @@ public abstract class Repository<T> implements RepositoryInterface<T>
         return databaseService.executeStatement(stmnt);
 	}
 
+	/**
+	 * Removes a record from the persistence layer
+	 *
+	 * @param entity the object to remove
+	 * @return whether it was sucessful or not
+	 */
 	public boolean remove(T entity)
 	{
-		System.out.println("should delete from " + TABLENAME);
-		System.out.println( entity );
+		int id = 0;
+
+        for (Field field : entity.getClass().getDeclaredFields()) {
+            try {
+                Object value = field.get(entity);
+
+                if (value != null) {
+                    String targetField = field.getName();
+                    String type = value.getClass().getName();
+
+					if (type == "java.lang.Integer" && targetField.equals("id")) {
+						id = (int)value;
+					} else {
+						break;
+					}
+				} else {
+					break;
+				}
+            } catch (Exception e) {
+                System.err.println("ERROR: " + e.getMessage());
+                return false;
+            }
+        }
+
+		if (!(id > 0)) {
+			return false;
+		}
+
+		DatabaseService databaseService = new DatabaseService();
+		Connection connection = databaseService.getConnection();
+		String stmnt = "DELETE FROM " + TABLENAME + " WHERE id = ?";
+
+		try {
+			PreparedStatement pst = connection.prepareStatement(stmnt);
+			pst.setInt(1, id);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("ERROR: " + e.getMessage());
+			return false;
+		} finally {
+			databaseService.disconnect(connection);
+		}
 
 		return true;
 	}
