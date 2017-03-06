@@ -17,13 +17,18 @@ import org.apache.commons.cli.Option;
  */
 public class App
 {
+	protected static final short PARAMETER_ERROR = 1;
+	protected static final short PARAMETER_PARSING_ERROR = 1;
+	protected static final short DATABASE_ERROR = 3;
+	protected static final short UNKNOWN_ERROR = 255;
+
 	public static void main(String[] args) throws Exception
 	{
 		ConfigService configService = new ConfigService();
 
 		if (!configService.configIsValid()) {
-			System.err.println("Your config file doesn't exist or isn't valid!");
-			configService.askToCreateDefaultConfig();
+			System.out.println("Your config file doesn't exist or isn't valid!");
+				configService.askToCreateDefaultConfig();
 		}
 
 		ConfigRepository configRepository = new ConfigRepository();
@@ -32,8 +37,7 @@ public class App
 		DatabaseService databaseService = new DatabaseService();
 
 		if (!databaseService.testConnection()) {
-			System.err.println("ERROR: Can't connect to database");
-			System.exit(1);
+			exit(DATABASE_ERROR, "Can't connect to database", null);
 		}
 
 		if (config.getUserID() == -1) {
@@ -41,8 +45,7 @@ public class App
 
 			// the legendary 'this should never happen' comment
 			if (userID == -1) {
-				System.err.println("ERROR: Something really bad happend while determining the next user id");
-				System.exit(1);
+				exit(UNKNOWN_ERROR, "Something really bad happend while determining the next user id", null);
 			}
 
 			config.setUserID(userID);
@@ -65,51 +68,93 @@ public class App
 			passwordListRepository.save(passwordList);
 		}
 
-		Password password = new Password(2, user.getPasswordList(), "Googler", "name", "1234");
-		passwordRepository.save(password);
-		System.out.println( passwordRepository.remove(password) );
+		// Password password = new Password(2, user.getPasswordList(), "Googler", "name", "1234");
+		// passwordRepository.save(password);
+		// System.out.println( passwordRepository.remove(password) );
 
 		Options options = new Options();
+		Option addOption = new Option("a", "add", false, "add a new password");
+		Option usernameOption = new Option("u", "username", true, "your username");
+		Option passwordOption = new Option("p", "password", true, "your password");
+		Option serviceOption = new Option("s", "service", true, "which service/url the password is used for");
+		Option removeOption = new Option("r", "remove", true, "remove a password");
+		Option generateOption = new Option("g", "generate", false, "use an auto generated password");
 
-		// short opt
-		// int opt
-		// argument after
-		// description
-       // Option input = new Option("i", "input", true, "input file path");
-       // input.setRequired(true);
-       // options.addOption(input);
-
-		Option add = new Option("a", "add", false, "add a new password");
-		Option generate = new Option("g", "generate", false, "outputs a generated password");
-
-		options.addOption(add);
-		options.addOption(generate);
-
+		options.addOption(addOption);
+		options.addOption(usernameOption);
+		options.addOption(passwordOption);
+		options.addOption(serviceOption);
+		options.addOption(removeOption);
+		options.addOption(generateOption);
 
 		CommandLineParser parser = new DefaultParser();
 		HelpFormatter formatter = new HelpFormatter();
-		CommandLine cmd;
+		CommandLine cmd = null;
 
 		try {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
-			System.err.println("ERROR: " + e.getMessage());
-			formatter.printHelp("utility-name", options);
-
-			System.exit(1);
-			return;
+			exit(PARAMETER_PARSING_ERROR, e.getMessage(), options);
 		}
 
+		boolean add = cmd.hasOption("add");
+		boolean newUsername = cmd.hasOption("username");
+		boolean newPassword = cmd.hasOption("password");
+		boolean newService = cmd.hasOption("service");
+		boolean remove = cmd.hasOption("remove");
 		boolean generatePassword = cmd.hasOption("generate");
-		boolean addPassword = cmd.hasOption("add");
-		// System.out.println(generatePassword);
-		if (generatePassword) {
-			EncryptionService encryptionService = new EncryptionService();
-			// System.out.println(encryptionService.generatePassword());
-		}
 
-		if (addPassword) {
-			System.out.println( "Some add stuff" );
+		if (add && newUsername && newService && !remove) {
+			EncryptionService encryptionService = new EncryptionService();
+			String plainPassword = null;
+
+			if (newPassword && !generatePassword) {
+				plainPassword = cmd.getOptionValue("password");
+			} else if (!newPassword && generatePassword) {
+				plainPassword = encryptionService.generatePassword();
+			} else {
+				exit(PARAMETER_ERROR, "you need to specify a password OR to generate one", options);
+			}
+
+
+		// Password password = new Password(2, user.getPasswordList(), "Googler", "name", "1234");
+		// passwordRepository.save(password);
+		// System.out.println( passwordRepository.remove(password) );
+
+			Password password = new Password(
+					user.getPasswordList(),
+					cmd.getOptionValue("service"),
+					cmd.getOptionValue("username"),
+					encryptionService.encrypt(plainPassword));
+
+			passwordRepository.save(password);
+
+		} else if (remove && !add) {
+			System.out.println( "Some remove stuff" );
+		} else {
+			// need stuff to show passwords
+			exit(PARAMETER_ERROR, "Don't know what to do", options);
 		}
     }
+
+	/**
+	 * A helper function to exit the program
+	 *
+	 * @param exitCode the exit code to return to the caller
+	 * @param customErrorMessage an errormessage which will be printed on stderr if defined
+	 * @param options options to print the help output
+	 */
+	protected static void exit(short exitCode, String customErrorMessage, Options options)
+	{
+		if (customErrorMessage != null) {
+			System.err.println("ERROR: " + customErrorMessage);
+		}
+
+		if (options != null) {
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("utility-name", options);
+		}
+
+		System.exit(exitCode);
+	}
 }

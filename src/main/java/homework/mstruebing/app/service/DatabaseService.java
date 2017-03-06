@@ -101,6 +101,44 @@ public class DatabaseService
 	}
 
 	/**
+	 * Get the next useable password id
+	 *
+	 * @return the next useable password id
+	 */
+	public int getNextUsablePasswordId()
+	{
+		Connection connection = getConnection();
+		ResultSet rs = null;
+		int passwordId = -1;
+
+		if (null != connection) {
+			PreparedStatement pst = null;
+			String stmnt = "INSERT INTO PasswordRepository VALUES()";
+			String getLastInsertedId = "SELECT @id:=id AS id FROM PasswordRepository WHERE id = last_insert_id();";
+
+			try {
+				pst = connection.prepareStatement(stmnt);
+				pst.executeUpdate();
+				pst = connection.prepareStatement(getLastInsertedId);
+				rs = pst.executeQuery();
+				rs.next();
+				passwordId = rs.getInt(1);
+			} catch (SQLException e) {
+				// this happens if no password was added until now
+				if (e.getMessage().equals("Illegal operation on empty result set.")) {
+					passwordId = 0;
+				} else {
+					System.err.println("ERROR: " + e.getMessage());
+				}
+			} finally {
+				disconnect(connection);
+			}
+		}
+
+		return passwordId;
+	}
+
+	/**
 	 * Executes a mysql statement
 	 *
 	 * @param stmnt the statement to execute
@@ -118,7 +156,9 @@ public class DatabaseService
 				pst.execute();
 				return true;
 			} catch (SQLException e) {
+				System.out.println( "IM HERE" );
 				System.err.println("ERROR: " + e.getMessage());
+				System.out.println( "HERE" );
 			} finally {
 				disconnect(connection);
 			}

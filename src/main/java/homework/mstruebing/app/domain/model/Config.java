@@ -22,7 +22,8 @@ public class Config
 	 * @param dbPassword the password to log in with
 	 * @param dbName the name of the database to use
 	 */
-	public Config(String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName) {
+	public Config(String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName)
+	{
 		this.dbHost = dbHost;
 		this.dbPort = dbPort;
 		this.dbUsername = dbUsername;
@@ -40,7 +41,8 @@ public class Config
 	 * @param dbPassword the password to log in with
 	 * @param dbName the name of the database to use
 	 */
-	public Config(int userID, String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName) {
+	public Config(int userID, String dbHost, int dbPort, String dbUsername, String dbPassword, String dbName)
+	{
 		this.userID = userID;
 		this.dbHost = dbHost;
 		this.dbPort = dbPort;
@@ -49,51 +51,63 @@ public class Config
 		this.dbName = dbName;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(int userID)
+	{
 		this.userID = userID;
 	}
 
-	public int getUserID() {
+	public int getUserID()
+	{
 		return this.userID;
 	}
 
-	public void setDbHost(String dbHost) {
+	public void setDbHost(String dbHost)
+	{
 		this.dbHost = dbHost;
 	}
 
-	public String getDbHost() {
+	public String getDbHost()
+	{
 		return this.dbHost;
 	}
 
-	public void setDbPort(int dbPort) {
+	public void setDbPort(int dbPort)
+	{
 		this.dbPort = dbPort;
 	}
 
-	public int getDbPort() {
+	public int getDbPort()
+	{
 		return this.dbPort;
 	}
 
-	public void setDbUsername(String dbUsername) {
+	public void setDbUsername(String dbUsername)
+	{
 		this.dbUsername = dbUsername;
 	}
 
-	public String getDbUsername() {
+	public String getDbUsername()
+	{
 		return this.dbUsername;
 	}
 
-	public void setDbPassword(String dbPassword) {
+	public void setDbPassword(String dbPassword)
+	{
 		this.dbPassword = dbPassword;
 	}
 
-	public String getDbPassword() {
+	public String getDbPassword()
+	{
 		return this.dbPassword;
 	}
 
-	public void setDbName(String dbName) {
+	public void setDbName(String dbName)
+	{
 		this.dbName = dbName;
 	}
 
-	public String getDbName() {
+	public String getDbName()
+	{
 		return this.dbName;
 	}
 }
