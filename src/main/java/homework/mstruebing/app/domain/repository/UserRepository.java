@@ -18,7 +18,7 @@ public class UserRepository extends Repository<User>
 		User user = null;
 
 		if (connection != null) {
-			String stmnt = "SELECT * from " + TABLENAME + " WHERE id = " + id;
+			String stmnt = "SELECT * FROM `" + TABLENAME + "` WHERE id = " + id;
 
 			PreparedStatement pst = null;
 

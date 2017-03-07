@@ -1,5 +1,7 @@
 package homework.mstruebing.app;
 
+import java.util.ArrayList;
+
 /**
  * https://commons.apache.org/proper/commons-cli/
  */
@@ -18,7 +20,7 @@ import org.apache.commons.cli.Option;
 public class App
 {
 	protected static final short PARAMETER_ERROR = 1;
-	protected static final short PARAMETER_PARSING_ERROR = 1;
+	protected static final short PARAMETER_PARSING_ERROR = 2;
 	protected static final short DATABASE_ERROR = 3;
 	protected static final short UNKNOWN_ERROR = 255;
 
@@ -56,7 +58,6 @@ public class App
 		User user = userRepository.findById(config.getUserID());
 
 		PasswordListRepository passwordListRepository = new PasswordListRepository();
-		PasswordRepository passwordRepository = new PasswordRepository();
 
 		if (user == null) {
 			user = new User(config.getUserID());
@@ -67,10 +68,6 @@ public class App
 			userRepository.save(user);
 			passwordListRepository.save(passwordList);
 		}
-
-		// Password password = new Password(2, user.getPasswordList(), "Googler", "name", "1234");
-		// passwordRepository.save(password);
-		// System.out.println( passwordRepository.remove(password) );
 
 		Options options = new Options();
 		Option addOption = new Option("a", "add", false, "add a new password");
@@ -116,6 +113,7 @@ public class App
 				exit(PARAMETER_ERROR, "you need to specify a password OR to generate one", options);
 			}
 
+			PasswordRepository passwordRepository = new PasswordRepository();
 			Password password = new Password(
 					user.getPasswordList(),
 					cmd.getOptionValue("service"),
@@ -125,8 +123,19 @@ public class App
 			passwordRepository.save(password);
 		} else if (remove && !add) {
 			System.out.println( "Some remove stuff" );
+		} else if (args.length == 0){
+			PasswordRepository passwordRepository = new PasswordRepository();
+			ArrayList<Password> passwords = passwordRepository.findByUserId(user.getId());
+
+			EncryptionService encryptionService = new EncryptionService();
+
+			for (int i = 0; i < passwords.size(); i++) {
+				System.out.println("#" + i);
+				System.out.println("\tService: " + passwords.get(i).getTitle());
+				System.out.println("\tUsername: " +passwords.get(i).getUsername());
+				System.out.println("\tPassword: " + encryptionService.decrypt(passwords.get(i).getPassword()));
+			}
 		} else {
-			// need stuff to show passwords
 			exit(PARAMETER_ERROR, "Don't know what to do", options);
 		}
     }
