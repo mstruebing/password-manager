@@ -126,15 +126,7 @@ public class App
 		} else if (args.length == 0){
 			PasswordRepository passwordRepository = new PasswordRepository();
 			ArrayList<Password> passwords = passwordRepository.findByUserId(user.getId());
-
-			EncryptionService encryptionService = new EncryptionService();
-
-			for (int i = 0; i < passwords.size(); i++) {
-				System.out.println("#" + i);
-				System.out.println("\tService: " + passwords.get(i).getTitle());
-				System.out.println("\tUsername: " +passwords.get(i).getUsername());
-				System.out.println("\tPassword: " + encryptionService.decrypt(passwords.get(i).getPassword()));
-			}
+			printPasswords(passwords);
 		} else {
 			exit(PARAMETER_ERROR, "Don't know what to do", options);
 		}
@@ -159,5 +151,15 @@ public class App
 		}
 
 		System.exit(exitCode);
+	}
+
+	protected static void printPasswords(ArrayList<Password> passwords) {
+		EncryptionService encryptionService = new EncryptionService();
+		for (int i = 0; i < passwords.size(); i++) {
+			System.out.println("#" + i);
+			System.out.println("\tService: " + passwords.get(i).getTitle());
+			System.out.println("\tUsername: " + passwords.get(i).getUsername());
+			System.out.println("\tPassword: " + encryptionService.decrypt(passwords.get(i).getPassword()));
+		}
 	}
 }
