@@ -28,7 +28,7 @@ public class App
 
 		if (!configService.configIsValid()) {
 			System.out.println("Your config file doesn't exist or isn't valid!");
-				configService.askToCreateDefaultConfig();
+			configService.askToCreateDefaultConfig();
 		}
 
 		ConfigRepository configRepository = new ConfigRepository();
@@ -116,11 +116,6 @@ public class App
 				exit(PARAMETER_ERROR, "you need to specify a password OR to generate one", options);
 			}
 
-
-		// Password password = new Password(2, user.getPasswordList(), "Googler", "name", "1234");
-		// passwordRepository.save(password);
-		// System.out.println( passwordRepository.remove(password) );
-
 			Password password = new Password(
 					user.getPasswordList(),
 					cmd.getOptionValue("service"),
@@ -128,7 +123,6 @@ public class App
 					encryptionService.encrypt(plainPassword));
 
 			passwordRepository.save(password);
-
 		} else if (remove && !add) {
 			System.out.println( "Some remove stuff" );
 		} else {
