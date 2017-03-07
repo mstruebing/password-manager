@@ -19,10 +19,11 @@ import org.apache.commons.cli.Option;
  */
 public class App
 {
-	protected static final short PARAMETER_ERROR = 1;
-	protected static final short PARAMETER_PARSING_ERROR = 2;
-	protected static final short DATABASE_ERROR = 3;
-	protected static final short UNKNOWN_ERROR = 255;
+	protected static final short EXIT_OK = 0;
+	protected static final short EXIT_PARAMETER_ERROR = 1;
+	protected static final short EXIT_PARAMETER_PARSING_ERROR = 2;
+	protected static final short EXIT_DATABASE_ERROR = 3;
+	protected static final short EXIT_UNKNOWN_ERROR = 255;
 
 	public static void main(String[] args) throws Exception
 	{
@@ -39,7 +40,7 @@ public class App
 		DatabaseService databaseService = new DatabaseService();
 
 		if (!databaseService.testConnection()) {
-			exit(DATABASE_ERROR, "Can't connect to database", null);
+			exit(EXIT_DATABASE_ERROR, "Can't connect to database", null);
 		}
 
 		if (config.getUserID() == -1) {
@@ -47,7 +48,7 @@ public class App
 
 			// the legendary 'this should never happen' comment
 			if (userID == -1) {
-				exit(UNKNOWN_ERROR, "Something really bad happend while determining the next user id", null);
+				exit(EXIT_UNKNOWN_ERROR, "Something really bad happend while determining the next user id", null);
 			}
 
 			config.setUserID(userID);
@@ -91,7 +92,7 @@ public class App
 		try {
 			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
-			exit(PARAMETER_PARSING_ERROR, e.getMessage(), options);
+			exit(EXIT_PARAMETER_PARSING_ERROR, e.getMessage(), options);
 		}
 
 		boolean add = cmd.hasOption("add");
@@ -110,7 +111,7 @@ public class App
 			} else if (!newPassword && generatePassword) {
 				plainPassword = encryptionService.generatePassword();
 			} else {
-				exit(PARAMETER_ERROR, "you need to specify a password OR to generate one", options);
+				exit(EXIT_PARAMETER_ERROR, "you need to specify a password OR to generate one", options);
 			}
 
 			PasswordRepository passwordRepository = new PasswordRepository();
@@ -128,8 +129,10 @@ public class App
 			ArrayList<Password> passwords = passwordRepository.findByUserId(user.getId());
 			printPasswords(passwords);
 		} else {
-			exit(PARAMETER_ERROR, "Don't know what to do", options);
+			exit(EXIT_PARAMETER_ERROR, "Don't know what to do", options);
 		}
+
+		exit(EXIT_OK, null, null);
     }
 
 	/**
