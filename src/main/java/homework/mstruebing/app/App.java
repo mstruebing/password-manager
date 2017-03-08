@@ -14,11 +14,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Option;
 
 /**
- * Hello world!
+ * Hello w9rld!
  *
  */
 public class App
 {
+	// exit parameter values
 	protected static final short EXIT_OK = 0;
 	protected static final short EXIT_PARAMETER_ERROR = 1;
 	protected static final short EXIT_PARAMETER_PARSING_ERROR = 2;
@@ -129,9 +130,13 @@ public class App
 			int index = 0;
 
 			try {
-				index = Integer.parseInt(indexAsString);
+				index = Integer.parseInt(indexAsString) - 1;
 			} catch (NumberFormatException e) {
-				exit(EXIT_PARAMETER_PARSING_ERROR, "Not an valid index", options);
+				exit(EXIT_PARAMETER_PARSING_ERROR, "Not a valid index", options);
+			}
+
+			if (index < 0 || index > passwords.size()) {
+				exit(EXIT_PARAMETER_PARSING_ERROR, "Not a valid index", options);
 			}
 
 			Password password = passwords.get(index);
@@ -168,6 +173,11 @@ public class App
 		System.exit(exitCode);
 	}
 
+	/**
+	 * A helper function to print the passwords
+	 *
+	 * @param passwords an arraylist containing the passwords
+	 */
 	protected static void printPasswords(ArrayList<Password> passwords) {
 		EncryptionService encryptionService = new EncryptionService();
 		for (int i = 0; i < passwords.size(); i++) {
