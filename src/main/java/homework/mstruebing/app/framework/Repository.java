@@ -128,6 +128,7 @@ public abstract class Repository<T> implements RepositoryInterface<T>
 		DatabaseService databaseService = new DatabaseService();
 		Connection connection = databaseService.getConnection();
 		String stmnt = "DELETE FROM " + TABLENAME + " WHERE id = ?";
+		System.out.println( "stmnt: " + stmnt );
 
 		try {
 			PreparedStatement pst = connection.prepareStatement(stmnt);

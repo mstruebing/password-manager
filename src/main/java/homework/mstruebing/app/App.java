@@ -123,7 +123,19 @@ public class App
 
 			passwordRepository.save(password);
 		} else if (remove && !add) {
-			System.out.println( "Some remove stuff" );
+			PasswordRepository passwordRepository = new PasswordRepository();
+			ArrayList<Password> passwords = passwordRepository.findByUserId(user.getId());
+			String indexAsString = cmd.getOptionValue("remove");
+			int index = 0;
+
+			try {
+				index = Integer.parseInt(indexAsString);
+			} catch (NumberFormatException e) {
+				exit(EXIT_PARAMETER_PARSING_ERROR, "Not an valid index", options);
+			}
+
+			Password password = passwords.get(index);
+			passwordRepository.remove(password);
 		} else if (args.length == 0){
 			PasswordRepository passwordRepository = new PasswordRepository();
 			ArrayList<Password> passwords = passwordRepository.findByUserId(user.getId());

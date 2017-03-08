@@ -12,13 +12,13 @@ import java.util.ArrayList;
  */
 public class PasswordRepository extends Repository<Password>
 {
-	public ArrayList<Password> findByUserId(int id)
+	public ArrayList<Password> findByUserId(int userId)
 	{
 		DatabaseService databaseService = new DatabaseService();
 		Connection connection = databaseService.getConnection();
 
 		UserRepository userRepository = new UserRepository();
-		User user = userRepository.findById(id);
+		User user = userRepository.findById(userId);
 
 		ArrayList<Password> passwords = new ArrayList<Password>();
 
@@ -32,10 +32,11 @@ public class PasswordRepository extends Repository<Password>
 				ResultSet rs = pst.executeQuery();
 				while (rs.next()) {
 					PasswordList passwordList = user.getPasswordList();
+					int id = rs.getInt("id");
 					String title = rs.getString("title");
 					String username = rs.getString("username");
 					String encrpytedPassword = rs.getString("password");
-					Password password = new Password(passwordList, title, username, encrpytedPassword);
+					Password password = new Password(id, passwordList, title, username, encrpytedPassword);
 					passwords.add(password);
 				}
 			} catch (SQLException e) {
