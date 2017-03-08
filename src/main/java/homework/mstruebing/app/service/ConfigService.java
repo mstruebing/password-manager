@@ -15,7 +15,6 @@ import java.util.Scanner;
  */
 public class ConfigService
 {
-
 	/**
 	 * Creates a default config and saves it via repository
 	 *

@@ -19,7 +19,7 @@ import org.apache.commons.cli.Option;
  */
 public class App
 {
-	// exit parameter values
+	// exit values
 	protected static final short EXIT_OK = 0;
 	protected static final short EXIT_PARAMETER_ERROR = 1;
 	protected static final short EXIT_PARAMETER_PARSING_ERROR = 2;
@@ -127,12 +127,12 @@ public class App
 			PasswordRepository passwordRepository = new PasswordRepository();
 			ArrayList<Password> passwords = passwordRepository.findByUserId(user.getId());
 			String indexAsString = cmd.getOptionValue("remove");
-			int index = 0;
+			int index = -1;
 
 			try {
 				index = Integer.parseInt(indexAsString) - 1;
 			} catch (NumberFormatException e) {
-				exit(EXIT_PARAMETER_PARSING_ERROR, "Not a valid index", options);
+				index = -1;
 			}
 
 			if (index < 0 || index > passwords.size()) {
