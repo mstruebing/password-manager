@@ -140,7 +140,7 @@ public class App
 				index = -1;
 			}
 
-			if (index < 0 || index > passwords.size()) {
+			if (index < 0 || index > passwords.size() || passwords.size() == 0) {
 				exit(EXIT_PARAMETER_PARSING_ERROR, "Not a valid index", options);
 			}
 
