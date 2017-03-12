@@ -14,7 +14,7 @@ function assert() {
     if [ $# -ne 3 ];
     then
         echo Wrong amount of parameters
-        echo call this function like 'assert value1 value3 testName'
+        echo call this function like 'assert value1 value2 testName'
         return 2
     fi
 
