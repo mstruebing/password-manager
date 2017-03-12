@@ -43,3 +43,9 @@ assert "$?" 2 "call with r option but no id should return 2"
 
 java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App --remove &>/dev/null
 assert "$?" 2 "call with remove option but no id should return 2"
+
+java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App --remove a &>/dev/null
+assert "$?" 2 "call with remove option but no valid id should return 2"
+
+java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App --remove a1 &>/dev/null
+assert "$?" 2 "call with remove option but no valid id should return 2"
