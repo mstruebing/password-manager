@@ -28,6 +28,26 @@ public class App
 
 	public static void main(String[] args) throws Exception
 	{
+		Options options = new Options();
+		Option addOption = new Option("a", "add", false, "add a new password");
+		Option usernameOption = new Option("u", "username", true, "your username");
+		Option passwordOption = new Option("p", "password", true, "your password");
+		Option serviceOption = new Option("s", "service", true, "which service/url the password is used for");
+		Option removeOption = new Option("r", "remove", true, "remove a password");
+		Option generateOption = new Option("g", "generate", false, "use an auto generated password");
+
+		options.addOption(addOption);
+		options.addOption(usernameOption);
+		options.addOption(passwordOption);
+		options.addOption(serviceOption);
+		options.addOption(removeOption);
+		options.addOption(generateOption);
+
+		if (args.length == 1 && (args[0].equals("-h") || args[0].equals("--help"))) {
+			exit(EXIT_OK, null, options);
+		}
+
+
 		ConfigService configService = new ConfigService();
 
 		if (!configService.configIsValid()) {
@@ -70,21 +90,6 @@ public class App
 			userRepository.save(user);
 			passwordListRepository.save(passwordList);
 		}
-
-		Options options = new Options();
-		Option addOption = new Option("a", "add", false, "add a new password");
-		Option usernameOption = new Option("u", "username", true, "your username");
-		Option passwordOption = new Option("p", "password", true, "your password");
-		Option serviceOption = new Option("s", "service", true, "which service/url the password is used for");
-		Option removeOption = new Option("r", "remove", true, "remove a password");
-		Option generateOption = new Option("g", "generate", false, "use an auto generated password");
-
-		options.addOption(addOption);
-		options.addOption(usernameOption);
-		options.addOption(passwordOption);
-		options.addOption(serviceOption);
-		options.addOption(removeOption);
-		options.addOption(generateOption);
 
 		CommandLineParser parser = new DefaultParser();
 		HelpFormatter formatter = new HelpFormatter();
