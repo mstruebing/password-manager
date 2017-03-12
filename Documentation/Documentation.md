@@ -39,8 +39,8 @@ javadoc - to create a documentation out of code
 [shade-plugin](https://maven.apache.org/plugins/maven-shade-plugin/) - to bundle everything together for runtime
 
 ## Trivia
-At the current state I wrote 1394 LoC(Lines of Code) `wc -l src/**/*.java`  
-I created a `tests.sh` file to tests the error codes in case of failures.  
-There is a Makefile which I wrote because I didn't want to remember what maven commands I have to use  
-With `make docs` javadoc would create a documentation and place it in `Documentation/apidocs`  
+At the current state I wrote 1394 LoC(Lines of Code) `wc -l src/**/*.java`     
+I created a `tests.sh` file to tests the error codes in case of failures.     
+There is a Makefile which I wrote because I didn't want to remember what maven commands I have to use     
+With `make docs` javadoc would create a documentation and place it in `Documentation/apidocs`    
 I don't like Java.
