@@ -40,7 +40,7 @@ javadoc - to create a documentation out of code
 
 ## Trivia
 At the current state I wrote 1394 LoC(Lines of Code) `wc -l src/**/*.java`     
-I created a `tests.sh` file to tests the error codes in case of failures.     
+I created a `tests.sh` file to tests the error codes in case of falsy user input.     
 There is a Makefile which I wrote because I didn't want to remember what maven commands I have to use     
 With `make docs` javadoc would create a documentation and place it in `Documentation/apidocs`    
 I don't like Java.

@@ -49,3 +49,15 @@ assert "$?" 2 "call with remove option but no valid id should return 2"
 
 java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App --remove a1 &>/dev/null
 assert "$?" 2 "call with remove option but no valid id should return 2"
+
+java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App -a  &>/dev/null
+assert "$?" 1 "call with add option but not all neccessary parameters should return 1"
+
+java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App -a -s abc  &>/dev/null
+assert "$?" 1 "call with add option but not all neccessary parameters should return 1"
+
+java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App -a -u someUserName -s abc  &>/dev/null
+assert "$?" 1 "call with add option but not all neccessary parameters should return 1"
+
+java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App -a -u someUserName -p somePassword  &>/dev/null
+assert "$?" 1 "call with add option but not all neccessary parameters should return 1"
