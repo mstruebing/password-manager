@@ -38,6 +38,37 @@ javadoc - to create a documentation out of code
 [errorprone](http://errorprone.info/) - for static code-analysis
 [shade-plugin](https://maven.apache.org/plugins/maven-shade-plugin/) - to bundle everything together for runtime
 
+## Compiling and execution
+Compiling can be done simply via `make`
+Or with `mvn package`
+
+After that the application can be run via
+`java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App`
+
+With the `-h` or `--help` param at the end you get a cool help text.
+
+HELP:
+```
+usage: utility-name
+ -a,--add              add a new password
+ -g,--generate         use an auto generated password
+ -p,--password <arg>   your password
+ -r,--remove <arg>     remove a password
+ -s,--service <arg>    which service/url the password is used for
+ -u,--username <arg>   your username
+```
+
+service and username are required after the add option, also a password XOR the generate option
+
+`java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App -a -s "google" -u "max" -g`
+`java -cp target/my-app-1.0-SNAPSHOT.jar homework.mstruebing.app.App -a -s "google" -u "max" -p "password"`
+
+With no parameter given the passwordlist from your user will be displayed.
+
+After the first execution you will find a file called `.pw_man_max.conf` in your home directory. - I don't know where it is located under Windows
+but maybe in your 'Eigene Dateien' directory.
+This file contains database connection credentials and your user id.
+
 ## Trivia
 At the current state I wrote 1394 LoC(Lines of Code) `wc -l src/**/*.java`     
 I created a `tests.sh` file to tests the error codes in case of falsy user input.     
