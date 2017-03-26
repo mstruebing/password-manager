@@ -4,7 +4,7 @@ package homework.mstruebing.app;
  * Repository for a password list
  *
  */
-public class PasswordListRepository<PasswordList> extends Repository
+public class PasswordListRepository extends Repository<PasswordList>
 {
 
 }
