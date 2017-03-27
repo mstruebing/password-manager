@@ -70,6 +70,7 @@ public class DatabaseService
 
 	/**
 	 * Get the next useable user id
+	 * Maybe this function should better be located in the UserRepository
 	 *
 	 * @return the next useable user id
 	 */
